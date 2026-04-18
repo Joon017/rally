@@ -1,0 +1,1091 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#ffffff;color:#111827;line-height:1.6}
+.w{max-width:1080px;margin:0 auto;padding:0 28px}
+
+nav{background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 28px;max-width:1080px;margin:0 auto}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;color:#15803d;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-size:14px;color:#6b7280;font-weight:500;text-decoration:none;transition:color 0.15s}
+.nav-links a:hover{color:#111827}
+.nav-cta{background:#15803d;color:#fff;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-0.2px}
+
+.hero{padding:24px 28px 0;max-width:1080px;margin:0 auto;position:relative}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse at center,rgba(34,197,94,0.12) 0%,transparent 70%);pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:56px}
+.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:44px;font-weight:800;line-height:1.08;letter-spacing:-1.5px;color:#111827;margin-bottom:16px}
+.hero h1 .accent{color:#15803d}
+.hero h1 .underline{position:relative;display:inline-block}
+.hero h1 .underline::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:#bbf7d0;border-radius:2px}
+.hero-sub{font-size:17px;color:#374151;max-width:420px;margin:0 0 32px;line-height:1.65;font-weight:400}
+.hero-btns{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+.btn-p{background:#15803d;color:#fff;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:600;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-0.2px}
+.btn-s{background:#fff;color:#111827;padding:13px 24px;border-radius:9px;font-size:15px;font-weight:500;cursor:pointer;border:1px solid #d4e8d4;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:6px}
+.hero-note{font-size:13px;color:#9ca3af}
+.ri-wrap{border-radius:16px;border:1px solid #e5e7eb;background:#fff;box-shadow:0 4px 24px rgba(0,80,0,0.06);overflow:hidden;display:flex;flex-direction:column}
+.ri-header{background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:12px 16px;display:flex;align-items:center;gap:8px}
+.ri-live-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:livePulse 2s ease infinite;flex-shrink:0}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.ri-header-label{font-size:12px;font-weight:600;color:#111827;flex:1}
+.ri-header-sub{font-size:11px;color:#9ca3af}
+.ri-feed{height:380px;overflow:hidden;position:relative}
+.ri-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;position:absolute;left:12px;right:12px;height:114px;overflow:hidden;transition:top 0.55s cubic-bezier(0.4,0,0.2,1),opacity 0.45s ease,transform 0.45s ease}
+.ri-card-btns{display:flex;gap:6px;margin-top:2px}
+.ri-btn-p{font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;border:none;cursor:pointer;background:#15803d;color:#fff;font-family:'Plus Jakarta Sans',sans-serif}
+.ri-btn-s{font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid #e5e7eb;cursor:pointer;background:#fff;color:#6b7280;font-family:'Plus Jakarta Sans',sans-serif}
+.ri-card-top{display:flex;align-items:center;gap:10px}
+.ri-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'Plus Jakarta Sans',sans-serif}
+.ri-card-meta{flex:1;min-width:0}
+.ri-card-name{font-size:13px;font-weight:600;color:#111827}
+.ri-card-trigger{font-size:11px;color:#9ca3af;margin-top:1px}
+.ri-card-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.ri-card-divider{border:none;border-top:1px solid #f3f4f6;margin:0}
+.ri-card-action{font-size:12px;color:#374151;line-height:1.5}
+
+.dashboard-preview{background:#fff;border:1px solid #e5e7eb;border-radius:20px;overflow:hidden;box-shadow:0 4px 40px rgba(0,80,0,0.06);width:100%;transform:scale(0.88);transform-origin:top center;margin-bottom:-7%}
+.dp-bar{background:#f3f4f6;border-bottom:1px solid #e5e7eb;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.dp-bar-left{display:flex;align-items:center;gap:8px}
+.dp-bar-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;color:#15803d;letter-spacing:-0.3px}
+.dp-dot{width:10px;height:10px;border-radius:50%}
+.dp-d1{background:#fca5a5}
+.dp-d2{background:#fcd34d}
+.dp-d3{background:#6ee7b7}
+.dp-title{font-size:13px;color:#9ca3af;margin-left:8px;font-weight:500}
+.dp-body{padding:14px;display:flex;flex-direction:column;gap:8px}
+.dp-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.dp-stat{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:10px 12px}
+.dp-stat-label{font-size:10px;color:#9ca3af;font-weight:500;margin-bottom:3px}
+.dp-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:#15803d;letter-spacing:-0.5px;line-height:1}
+.dp-stat-delta{font-size:10px;color:#22c55e;margin-top:2px;font-weight:500}
+.dp-feed{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.dp-feed-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.dp-feed-title{font-size:10px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:1px}
+.dp-event{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 11px;display:flex;flex-direction:column;gap:6px}
+.dp-event-top{display:flex;align-items:center;justify-content:space-between}
+.dp-event-left{display:flex;align-items:center;gap:7px}
+.dp-avatar{width:24px;height:24px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#15803d;font-family:'Plus Jakarta Sans',sans-serif;flex-shrink:0}
+.dp-event-name{font-size:11px;font-weight:600;color:#111827}
+.dp-event-trigger{font-size:10px;color:#9ca3af}
+.dp-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;white-space:nowrap}
+.badge-green{background:#dcfce7;color:#15803d}
+.badge-amber{background:#fef9c3;color:#a16207}
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.dp-msg{background:#f9fafb;border-radius:6px;padding:6px 8px;font-size:10px;color:#374151;line-height:1.5;border-left:2px solid #d1fae5}
+.dp-msg-label{font-size:9px;color:#9ca3af;font-weight:600;margin-bottom:2px}
+.dp-outcome{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600}
+.dp-outcome-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dp-campaign{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:10px 11px;display:flex;flex-direction:column;gap:7px}
+.dp-campaign-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.dp-campaign-name{font-size:11px;font-weight:600;color:#111827;margin-bottom:1px}
+.dp-campaign-sub{font-size:10px;color:#9ca3af}
+.dp-campaign-bar-wrap{display:flex;flex-direction:column;gap:3px}
+.dp-campaign-bar-label{display:flex;justify-content:space-between;font-size:9px;color:#9ca3af;font-weight:500}
+.dp-campaign-bar{height:4px;background:#e5e7eb;border-radius:100px;overflow:hidden}
+.dp-campaign-bar-fill{height:100%;border-radius:100px;background:#15803d}
+.dp-campaign-stats{display:flex;gap:12px}
+.dp-campaign-stat{display:flex;flex-direction:column;gap:1px}
+.dp-campaign-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;color:#111827;letter-spacing:-0.5px}
+.dp-campaign-stat-label{font-size:9px;color:#9ca3af;font-weight:500}
+
+.usecases{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff;padding:28px 0;margin-top:72px;overflow:hidden}
+.usecases-label{text-align:center;font-size:12px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.usecases-track{display:flex;gap:10px;animation:marquee 30s linear infinite;width:max-content}
+.usecases-track:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.uc-pill{display:flex;align-items:center;gap:7px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:100px;padding:8px 16px;white-space:nowrap;flex-shrink:0}
+.uc-pill-icon{font-size:16px;line-height:1}
+.uc-pill-name{font-size:13px;font-weight:600;color:#374151}
+
+section{padding:80px 28px;max-width:1080px;margin:0 auto;position:relative}
+.s-tag{font-size:12px;font-weight:600;color:#15803d;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.s-h{font-family:'Plus Jakarta Sans',sans-serif;font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#111827;margin-bottom:14px;line-height:1.1}
+.s-sub{font-size:16px;color:#374151;max-width:500px;line-height:1.7}
+
+.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:0}
+.ba-panel{border-radius:16px;padding:24px;border:1px solid #e5e7eb}
+.ba-panel.before{background:#fafafa}
+.ba-panel.after{background:#f0faf0;border-color:#bbf7d0}
+.ba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:16px}
+.ba-panel.before .ba-label{color:#9ca3af}
+.ba-panel.after .ba-label{color:#15803d}
+.ba-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f3f4f6;opacity:0;transform:translateY(8px);transition:opacity 0.4s ease,transform 0.4s ease}
+.ba-panel.after .ba-row{border-bottom-color:#dcfce7}
+.ba-row:last-child{border-bottom:none}
+.ba-row.visible{opacity:1;transform:translateY(0)}
+.ba-footer{opacity:0;transition:opacity 0.4s ease}
+.ba-footer.visible{opacity:1}
+.ba-row-left{display:flex;align-items:center;gap:10px}
+.ba-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.ba-name{font-size:12px;font-weight:500;color:#111827}
+.ba-sub{font-size:11px;color:#9ca3af;margin-top:1px}
+.ba-status{font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px}
+.status-lost{background:#fee2e2;color:#ef4444}
+.status-ok{background:#dcfce7;color:#15803d}
+.status-risk{background:#fef9c3;color:#a16207}
+.ba-action{font-size:10px;color:#9ca3af;font-style:italic}
+.ba-footer{margin-top:16px;padding:12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+.ba-panel.before .ba-footer{background:#fef2f2}
+.ba-panel.after .ba-footer{background:#dcfce7}
+.ba-footer-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.ba-panel.before .ba-footer-num{color:#ef4444}
+.ba-panel.after .ba-footer-num{color:#15803d}
+.ba-footer-label{font-size:11px;color:#6b7280}
+.problem-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.pc{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:28px}
+.pc-icon{width:40px;height:40px;border-radius:10px;margin-bottom:18px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.pc-red{background:#fef2f2}
+.pc h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;color:#111827;margin-bottom:8px}
+.pc p{font-size:14px;color:#6b7280;line-height:1.65}
+.pc-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:800;color:#ef4444;margin-top:16px;letter-spacing:-1px}
+.pc-numlab{font-size:12px;color:#9ca3af;margin-top:2px}
+
+.solution-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+.sol{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.sol.featured{border-color:#bbf7d0;background:#fff}
+.sol h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:#111827;margin-bottom:6px}
+.sol p{font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:16px}
+.sol ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sol li{font-size:12px;color:#374151;display:flex;align-items:flex-start;gap:8px;font-weight:500}
+.sol li::before{content:'';width:15px;height:15px;background:#dcfce7;border-radius:50%;flex-shrink:0;margin-top:1px;background-image:url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23dcfce7'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%2315803d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.sol-viz{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-bottom:20px;height:240px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+.tl-step{display:flex;align-items:flex-start;gap:10px;opacity:0;transform:translateX(-8px);transition:opacity 0.4s ease,transform 0.4s ease;margin-bottom:10px}
+.tl-step:last-child{margin-bottom:0}
+.tl-step.active{opacity:1;transform:translateX(0)}
+.tl-dot{width:26px;height:26px;border-radius:50%;background:#dcfce7;border:1.5px solid #15803d;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px}
+.tl-body{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:7px 10px;flex:1}
+.tl-time{font-size:9px;color:#9ca3af;font-weight:600;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.3px}
+.tl-msg{font-size:11px;color:#111827;font-weight:500}
+.tl-outcome{font-size:10px;color:#15803d;font-weight:600;margin-top:3px}
+.ret-bars-wrap{display:flex;flex-direction:column;gap:10px}
+.ret-bars{display:flex;align-items:flex-end;gap:5px;height:80px}
+.ret-bar{flex:1;border-radius:4px 4px 0 0;transition:height 0.6s ease;background:#dcfce7}
+.ret-bar.low{background:#fef9c3}
+.ret-bar.recovering{background:#bbf7d0;transition:height 0.6s ease}
+.ret-alert{display:flex;align-items:center;gap:8px;background:#fef9c3;border:1px solid #fbbf24;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400e;font-weight:500;opacity:0;transition:opacity 0.4s ease}
+.ret-recovered{display:flex;align-items:center;gap:8px;background:#f0faf0;border:1px solid #bbf7d0;border-radius:8px;padding:8px 10px;font-size:11px;color:#15803d;font-weight:500;opacity:0;transition:opacity 0.4s ease;margin-top:6px}
+
+.easy-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px;align-items:start}
+.easy-chat{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.chat-header{background:#111827;padding:14px 18px;display:flex;align-items:center;gap:10px}
+.chat-avatar{width:32px;height:32px;border-radius:50%;background:#15803d;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;flex-shrink:0}
+.chat-header-name{font-size:13px;font-weight:600;color:#fff}
+.chat-header-status{font-size:11px;color:#6ee7b7;display:flex;align-items:center;gap:4px}
+.chat-status-dot{width:6px;height:6px;border-radius:50%;background:#22c55e}
+.chat-msgs{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:320px}
+.chat-msg{display:flex;flex-direction:column;gap:4px;opacity:0;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease;max-width:85%}
+.chat-msg.visible{opacity:1;transform:translateY(0)}
+.chat-msg.user{align-self:flex-end}
+.chat-msg.rally{align-self:flex-start}
+.chat-bubble{padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.6}
+.chat-msg.user .chat-bubble{background:#15803d;color:#fff;border-bottom-right-radius:4px}
+.chat-msg.rally .chat-bubble{background:#f3f4f6;color:#111827;border-bottom-left-radius:4px}
+.chat-bubble-label{font-size:10px;color:#9ca3af;font-weight:500}
+.chat-msg.user .chat-bubble-label{text-align:right}
+.chat-action-list{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.chat-action{font-size:11px;color:#374151;display:flex;align-items:flex-start;gap:6px;opacity:0;transform:translateX(-4px);transition:opacity 0.3s ease,transform 0.3s ease}
+.chat-action.visible{opacity:1;transform:translateX(0)}
+.chat-action-check{color:#15803d;font-weight:700;flex-shrink:0}
+.chat-typing{display:flex;align-items:center;gap:4px;padding:10px 14px;background:#f3f4f6;border-radius:14px;border-bottom-left-radius:4px;width:fit-content;opacity:0;transition:opacity 0.3s ease}
+.chat-typing.visible{opacity:1}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:#9ca3af;animation:typingBounce 1s infinite}
+.typing-dot:nth-child(2){animation-delay:0.15s}
+.typing-dot:nth-child(3){animation-delay:0.3s}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+
+.easy-dash{background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.dash-label{font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.5px}
+.camp-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.camp-card-top{display:flex;align-items:center;justify-content:space-between}
+.camp-card-name{font-size:14px;font-weight:700;color:#111827}
+.camp-status-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;opacity:0;transition:opacity 0.4s ease}
+.camp-status-badge.visible{opacity:1}
+.camp-field{display:flex;flex-direction:column;gap:2px;opacity:0;transform:translateY(4px);transition:opacity 0.3s ease,transform 0.3s ease}
+.camp-field.visible{opacity:1;transform:translateY(0)}
+.camp-field-label{font-size:10px;color:#9ca3af;font-weight:500}
+.camp-field-val{font-size:12px;color:#111827;font-weight:500}
+.camp-divider{border:none;border-top:1px solid #e5e7eb}
+.camp-question{background:#f0faf0;border:1px solid #bbf7d0;border-radius:10px;padding:12px;font-size:12px;color:#15803d;font-weight:500;opacity:0;transition:opacity 0.4s ease}
+.camp-question.visible{opacity:1}
+
+.channels{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:40px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.channels-left h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:#111827;letter-spacing:-0.5px;margin-bottom:8px}
+.channels-left p{font-size:14px;color:#6b7280;max-width:360px;line-height:1.6}
+.ch-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.ch-pill{display:flex;align-items:center;gap:8px;background:#f3f4f6;border:1px solid #e5e7eb;padding:8px 16px;border-radius:100px;font-size:13px;font-weight:600;color:#111827}
+.ch-pill span{font-size:15px}
+.ch-pill.active{background:#f0faf0;border-color:#bbf7d0;color:#15803d}
+.ch-pill.active::after{content:'Active';font-size:10px;font-weight:600;background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:100px;margin-left:2px}
+
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;position:relative}
+.steps-row::before{content:'';position:absolute;top:26px;left:calc(16.7% + 12px);right:calc(16.7% + 12px);height:1px;background:#e5e7eb}
+.step{text-align:center;position:relative;z-index:1}
+.step-num{width:52px;height:52px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#15803d}
+.step h4{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;color:#111827;margin-bottom:8px;letter-spacing:-0.3px}
+.step p{font-size:13px;color:#6b7280;line-height:1.65;max-width:240px;margin:0 auto}
+
+.pricing-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+.pr{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:32px}
+.pr.hot{border-color:#15803d;border-width:1.5px}
+.pr-tag{display:inline-block;font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;margin-bottom:16px}
+.pr-tag.pop{background:#dcfce7;color:#15803d}
+.pr-tag.bas{background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb}
+.pr-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:#111827;margin-bottom:6px;letter-spacing:-0.5px}
+.pr-desc{font-size:13px;color:#6b7280;margin-bottom:20px;line-height:1.5}
+.pr-price{font-family:'Plus Jakarta Sans',sans-serif;font-size:44px;font-weight:800;color:#111827;letter-spacing:-2px;line-height:1}
+.pr-price sup{font-size:20px;letter-spacing:-0.5px;vertical-align:top;margin-top:8px}
+.pr-period{font-size:14px;color:#9ca3af;font-weight:400;font-family:'Plus Jakarta Sans',sans-serif;margin-top:2px}
+.pr-div{border:none;border-top:1px solid #e5e7eb;margin:20px 0}
+.pr ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.pr li{font-size:13px;color:#374151;display:flex;align-items:center;gap:8px;font-weight:500}
+.pr li::before{content:'✓';color:#15803d;font-size:13px;font-weight:700}
+.pr-btn{width:100%;padding:12px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-0.2px}
+.pr-btn-p{background:#15803d;color:#fff;border:none}
+.pr-btn-s{background:transparent;color:#111827;border:1px solid #d4e8d4}
+
+.cta-wrap{background:#111827;border-radius:20px;padding:72px;text-align:center;margin:0 0 80px}
+.cta-wrap h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:44px;font-weight:800;color:#fff;letter-spacing:-1.5px;margin-bottom:16px;line-height:1.1}
+.cta-wrap p{font-size:16px;color:#6b7280;margin-bottom:32px}
+.cta-btns{display:flex;gap:12px;justify-content:center}
+.cta-btn-p{background:#22c55e;color:#111827;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:600;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif}
+.cta-btn-s{background:transparent;color:#6b7280;padding:13px 24px;border-radius:9px;font-size:15px;font-weight:500;cursor:pointer;border:1px solid #2a3a2a;font-family:'Plus Jakarta Sans',sans-serif}
+
+footer{border-top:1px solid #e5e7eb;padding:28px;max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.ft-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#15803d;font-size:18px}
+.ft-text{font-size:13px;color:#9ca3af}
+.ft-links{display:flex;gap:20px}
+.ft-links a{font-size:13px;color:#9ca3af;text-decoration:none}
+</style>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Rally</div>
+    <div class="nav-links">
+      <button class="nav-cta">I'm interested</button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Your engagement assistant to <span class="accent underline">convert</span> new, and <span class="accent underline">retain</span> existing customers</h1>
+      <p class="hero-sub">Losing a customer or prospect is painful — and most of the time, it was preventable, or at least could have been mitigated through the right strategies and engagements. Rally assists and automates your entire member engagement lifecycle, turning trial and interested prospects into loyal customers and keeping existing ones coming back.</p>
+      <div class="hero-btns">
+        <button class="btn-p">I'm interested</button>
+        <button class="btn-s">See how it works →</button>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;color:#9ca3af;margin-bottom:12px">Rally is watching — so you don't have to</div>
+      <div class="ri-wrap">
+        <div class="ri-header">
+          <div class="ri-live-dot"></div>
+          <span class="ri-header-label">Live member insights</span>
+        </div>
+        <div class="ri-feed" id="riFeed"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="usecases">
+  <div class="usecases-label">Built for membership and class-based businesses</div>
+  <div class="usecases-track">
+    <div class="uc-pill"><span class="uc-pill-icon">🥋</span><span class="uc-pill-name">Martial Arts</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🧘</span><span class="uc-pill-name">Yoga Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🩰</span><span class="uc-pill-name">Dance Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🎨</span><span class="uc-pill-name">Art Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🎸</span><span class="uc-pill-name">Music Schools</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🏋️</span><span class="uc-pill-name">Fitness Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🏊</span><span class="uc-pill-name">Swim Schools</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🎓</span><span class="uc-pill-name">Tutoring Centers</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">💆</span><span class="uc-pill-name">Wellness Centers</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🧗</span><span class="uc-pill-name">Climbing Gyms</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🥊</span><span class="uc-pill-name">Boxing Gyms</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🏃</span><span class="uc-pill-name">Running Clubs</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="uc-pill"><span class="uc-pill-icon">🥋</span><span class="uc-pill-name">Martial Arts</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🧘</span><span class="uc-pill-name">Yoga Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🩰</span><span class="uc-pill-name">Dance Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🎨</span><span class="uc-pill-name">Art Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🎸</span><span class="uc-pill-name">Music Schools</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🏋️</span><span class="uc-pill-name">Fitness Studios</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🏊</span><span class="uc-pill-name">Swim Schools</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🎓</span><span class="uc-pill-name">Tutoring Centers</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">💆</span><span class="uc-pill-name">Wellness Centers</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🧗</span><span class="uc-pill-name">Climbing Gyms</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🥊</span><span class="uc-pill-name">Boxing Gyms</span></div>
+    <div class="uc-pill"><span class="uc-pill-icon">🏃</span><span class="uc-pill-name">Running Clubs</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="s-h">The clients you're losing without knowing it</div>
+  <div class="s-sub">Customer engagement is one of the most powerful drivers of retention, yet it's often the first thing that gets overlooked. Not from lack of care, but because consistently managing every touchpoint across every client is a genuinely tedious process to get right.</div>
+
+  <div class="problem-cards">
+    <div class="pc">
+      <div class="pc-icon pc-red">📋</div>
+      <h3>Leads that go cold</h3>
+      <p>Someone shows interest, tries your service, has a great experience — then never hears from you again. That lead is gone.</p>
+      <div class="pc-num">~70%</div>
+      <div class="pc-numlab">of trial leads don't convert without a timely follow-up</div>
+    </div>
+    <div class="pc">
+      <div class="pc-icon pc-red">📉</div>
+      <h3>Clients that quietly disappear</h3>
+      <p>Engagement drops off gradually. By the time you notice someone has drifted, they've already mentally moved on. There's no alarm that goes off.</p>
+      <div class="pc-num">8–12%</div>
+      <div class="pc-numlab">average monthly churn for boutique studios</div>
+    </div>
+    <div class="pc">
+      <div class="pc-icon pc-red">⏱</div>
+      <h3>Engagement that falls through the cracks</h3>
+      <p>Every client needs different touchpoints at different times. Keeping track of who needs what, and when, is impossible to do manually without things slipping.</p>
+      <div class="pc-num">5+ hrs</div>
+      <div class="pc-numlab">lost every week on manual client outreach</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="s-h" style="max-width:600px;margin:0 auto 12px">With Rally, your customers feel valued</div>
+    <div style="font-size:16px;color:#6b7280;max-width:480px;margin:0 auto;line-height:1.7">The kind of attention that turns a trial into a member, and a member into a regular.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:start">
+
+    <!-- WhatsApp post-trial -->
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+      <div style="background:#075e54;padding:12px 16px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:14px">💬</div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#fff">WhatsApp</div>
+          <div style="font-size:10px;color:#a7f3d0">From: Rally</div>
+        </div>
+        <div style="margin-left:auto;font-size:10px;color:#a7f3d0;font-weight:500">Post-trial follow-up</div>
+      </div>
+      <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+        <div style="background:#dcfce7;border-radius:12px;border-bottom-left-radius:3px;padding:12px 14px;font-size:13px;color:#111827;line-height:1.6">
+          Hey Wei Ling! 👋 Hope you loved tonight's class — Coach said you picked it up really fast.<br><br>Thinking of making it a regular thing? We'd love to have you. Here's a special offer just for you →
+        </div>
+        <div style="font-size:10px;color:#9ca3af;display:flex;align-items:center;gap:6px">
+          <span style="background:#dcfce7;color:#15803d;font-weight:600;padding:2px 8px;border-radius:100px">Delivered ✓</span>
+          <span style="background:#dbeafe;color:#1d4ed8;font-weight:600;padding:2px 8px;border-radius:100px">Read ✓</span>
+        </div>
+      </div>
+      <div style="padding:0 16px 14px;font-size:11px;font-weight:600;color:#6b7280;display:flex;align-items:center;gap:6px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#25d366;display:inline-block"></span> Post-trial follow-up
+      </div>
+    </div>
+
+    <!-- Email birthday -->
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+      <div style="background:#f3f4f6;border-bottom:1px solid #e5e7eb;padding:12px 16px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:50%;background:#6366f1;display:flex;align-items:center;justify-content:center;font-size:14px">✉️</div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#111827">Email</div>
+          <div style="font-size:10px;color:#9ca3af">From: Rally</div>
+        </div>
+        <div style="margin-left:auto;font-size:10px;color:#9ca3af;font-weight:500">Birthday month</div>
+      </div>
+      <div style="padding:16px">
+        <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:4px">🎂 Happy birthday month, Marcus!</div>
+        <div style="font-size:11px;color:#9ca3af;margin-bottom:12px;border-bottom:1px solid #f3f4f6;padding-bottom:12px">To: marcus.k@gmail.com</div>
+        <div style="font-size:13px;color:#374151;line-height:1.65">
+          It's your birthday month and we want to celebrate with you. 🎉<br><br>
+          Enjoy <strong>30% off</strong> your next month — no code needed, it's already applied.<br><br>
+          See you on the mat soon. 💪
+        </div>
+        <div style="margin-top:14px;background:#15803d;color:#fff;font-size:12px;font-weight:600;padding:9px 16px;border-radius:8px;text-align:center">Claim your birthday discount</div>
+      </div>
+      <div style="padding:0 16px 14px;font-size:11px;font-weight:600;color:#6b7280;display:flex;align-items:center;gap:6px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#6366f1;display:inline-block"></span> Birthday campaign
+      </div>
+    </div>
+
+    <!-- Right column: two stacked cards -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+
+      <!-- SMS renewal -->
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="background:#111827;padding:10px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="font-size:13px">📱</div>
+            <div style="font-size:12px;font-weight:600;color:#fff">SMS</div>
+          </div>
+          <div style="font-size:10px;color:#6b7280;font-weight:500">5 days before expiry</div>
+        </div>
+        <div style="padding:14px">
+          <div style="background:#f3f4f6;border-radius:10px;padding:12px;font-size:13px;color:#111827;line-height:1.6">
+            Hi Priya, your membership at [Studio] expires in 5 days. Renew now and lock in your rate before it changes 👉 [link]
+          </div>
+        </div>
+        <div style="padding:0 14px 12px;font-size:11px;font-weight:600;color:#6b7280;display:flex;align-items:center;gap:6px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#111827;display:inline-block"></span> Renewal reminder
+        </div>
+      </div>
+
+      <!-- Push re-engagement -->
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="background:#fef9c3;border-bottom:1px solid #fbbf24;padding:10px 16px;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="font-size:13px">🔔</div>
+            <div style="font-size:12px;font-weight:600;color:#92400e">Push notification</div>
+          </div>
+          <div style="font-size:10px;color:#a16207;font-weight:500">Inactive · 14 days</div>
+        </div>
+        <div style="padding:14px">
+          <div style="font-size:13px;font-weight:600;color:#111827;margin-bottom:4px">We miss you, Darren 👋</div>
+          <div style="font-size:12px;color:#6b7280;line-height:1.6">It's been a while. Your spot is still here — come back this week and your first class is on us.</div>
+        </div>
+        <div style="padding:0 14px 12px;font-size:11px;font-weight:600;color:#6b7280;display:flex;align-items:center;gap:6px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block"></span> Re-engagement nudge
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="s-tag">The solution</div>
+  <div class="s-h">Two pillars. One platform.</div>
+  <div class="s-sub">Rally handles your entire member engagement lifecycle automatically — from first trial to long-term loyalty.</div>
+  <div class="solution-wrap">
+    <div class="sol featured">
+      <h3>Trial Conversion</h3>
+      <p>Automated sequences that turn trial leads into paying customers — personalized messaging, smart offers, and perfect timing.</p>
+      <div class="sol-viz" id="trial-viz">
+        <div class="tl-step" id="tl1"><div class="tl-dot">📩</div><div class="tl-body"><div class="tl-time">Trial booked</div><div class="tl-msg">Confirmation & welcome sent via WhatsApp</div></div></div>
+        <div class="tl-step" id="tl2"><div class="tl-dot">⏰</div><div class="tl-body"><div class="tl-time">Day before class</div><div class="tl-msg">Pre-class reminder sent</div></div></div>
+        <div class="tl-step" id="tl3"><div class="tl-dot">💬</div><div class="tl-body"><div class="tl-time">After class</div><div class="tl-msg">Personalised follow-up sent</div></div></div>
+        <div class="tl-step" id="tl4"><div class="tl-dot">🎯</div><div class="tl-body"><div class="tl-time">No response · follow-up window</div><div class="tl-msg">Limited-time deal sent</div><div class="tl-outcome">✓ Converted</div></div></div>
+      </div>
+      <ul>
+        <li>Instant trial confirmation & pre-class reminder</li>
+        <li>Personalised post-class follow-up at the right moment</li>
+        <li>Smart objection handling & discount offers</li>
+        <li>Urgency nudges before trial expires</li>
+        <li>Cold nurture for unconverted trials</li>
+        <li>Referral prompts for satisfied trial members</li>
+      </ul>
+    </div>
+    <div class="sol">
+      <h3>Retention Management</h3>
+      <p>Behaviour-triggered engagement that spots at-risk clients early and brings them back before they decide to leave.</p>
+      <p style="font-size:13px;color:#15803d;font-weight:500;margin-top:-10px;margin-bottom:16px">Rally has intelligent analytics to help spot potential churn and bring them back before they decide to leave.</p>
+      <div class="sol-viz" id="retention-viz">
+        <div class="ret-bars-wrap">
+          <div class="ret-bars">
+            <div class="ret-bar" id="rb1" style="height:85%"></div>
+            <div class="ret-bar" id="rb2" style="height:90%"></div>
+            <div class="ret-bar" id="rb3" style="height:80%"></div>
+            <div class="ret-bar low" id="rb4" style="height:50%"></div>
+            <div class="ret-bar low" id="rb5" style="height:25%"></div>
+            <div class="ret-bar recovering" id="rb6" style="height:0%"></div>
+            <div class="ret-bar recovering" id="rb7" style="height:0%"></div>
+            <div class="ret-bar recovering" id="rb8" style="height:0%"></div>
+          </div>
+          <div class="ret-alert" id="ret-alert">⚠️ Rally detected: Marcus at risk · Re-engagement sent</div>
+          <div class="ret-recovered" id="ret-recovered">✓ Marcus re-engaged and booked a class</div>
+        </div>
+      </div>
+      <ul>
+        <li>Absence detection at configurable intervals</li>
+        <li>Automated re-engagement with personalised offers</li>
+        <li>Membership renewal reminders & incentives</li>
+        <li>Failed payment recovery</li>
+        <li>Milestone celebrations & birthday messages</li>
+        <li>Seasonal reactivation campaigns</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div style="text-align:center;margin-bottom:24px">
+    <div style="font-size:13px;font-weight:600;color:#9ca3af;letter-spacing:0.3px;margin-bottom:8px;text-transform:uppercase">Live dashboard</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:700;color:#111827;letter-spacing:-0.5px;max-width:600px;margin:0 auto">Track everything simply through the Rally dashboard</div>
+  </div>
+  <div class="dashboard-preview">
+    <div class="dp-bar">
+      <div class="dp-bar-left">
+        <div class="dp-dot dp-d1"></div><div class="dp-dot dp-d2"></div><div class="dp-dot dp-d3"></div>
+        <div class="dp-bar-logo">Rally</div>
+      </div>
+      <span class="dp-title">Live activity · Apr 15, 2026</span>
+    </div>
+    <div class="dp-body">
+      <div class="dp-stats-row">
+        <div class="dp-stat">
+          <div class="dp-stat-label">Trial conversion</div>
+          <div class="dp-stat-val">38%</div>
+          <div class="dp-stat-delta">↑ +17% this month</div>
+        </div>
+        <div class="dp-stat">
+          <div class="dp-stat-label">Retention rate</div>
+          <div class="dp-stat-val">94%</div>
+          <div class="dp-stat-delta">↑ up from 79%</div>
+        </div>
+        <div class="dp-stat">
+          <div class="dp-stat-label">Revenue recovered</div>
+          <div class="dp-stat-val">$1.4k</div>
+          <div class="dp-stat-delta">this month</div>
+        </div>
+      </div>
+      <div class="dp-feed">
+        <div class="dp-feed" style="background:#f8fdf8;border-color:#d1fae5">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="dp-feed-title">Weekly executive summary · Apr 7–14</div>
+            <div style="font-size:9px;font-weight:600;background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:100px">This week</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 11px">
+              <div style="font-size:9px;color:#9ca3af;font-weight:500;margin-bottom:3px">Messages sent</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#111827;letter-spacing:-0.5px">142</div>
+              <div style="font-size:9px;color:#22c55e;margin-top:2px;font-weight:500">↑ +23 vs last week</div>
+            </div>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 11px">
+              <div style="font-size:9px;color:#9ca3af;font-weight:500;margin-bottom:3px">Trials converted</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#111827;letter-spacing:-0.5px">8</div>
+              <div style="font-size:9px;color:#22c55e;margin-top:2px;font-weight:500">↑ 38% conv. rate</div>
+            </div>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 11px">
+              <div style="font-size:9px;color:#9ca3af;font-weight:500;margin-bottom:3px">Members retained</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#111827;letter-spacing:-0.5px">5</div>
+              <div style="font-size:9px;color:#22c55e;margin-top:2px;font-weight:500">from re-engagement</div>
+            </div>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 11px">
+              <div style="font-size:9px;color:#9ca3af;font-weight:500;margin-bottom:3px">Revenue impact</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#15803d;letter-spacing:-0.5px">$2.1k</div>
+              <div style="font-size:9px;color:#9ca3af;margin-top:2px;font-weight:500">est. from Rally actions</div>
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 11px;font-size:10px;color:#6b7280;line-height:1.6;border-left:2px solid #15803d">
+            <span style="color:#111827;font-weight:600">Rally summary:</span> Strong week — 8 trial conversions driven by post-class follow-ups. Marcus K. and 4 others re-engaged after absence nudges. Birthday campaign sent to 5 members with 80% redemption. 2 renewal reminders converted before lapse.
+          </div>
+        </div>
+        <div class="dp-feed-title">Trial pipeline</div>
+        <div class="dp-feed-grid">
+          <div class="dp-event">
+            <div class="dp-event-top">
+              <div class="dp-event-left">
+                <div class="dp-avatar" style="background:#ede9fe;color:#7c3aed">AS</div>
+                <div>
+                  <div class="dp-event-name">Aisha S.</div>
+                  <div class="dp-event-trigger">Trial class tomorrow at 7pm</div>
+                </div>
+              </div>
+              <div class="dp-badge" style="background:#ede9fe;color:#7c3aed">Trial reminder</div>
+            </div>
+            <div class="dp-msg">
+              <div class="dp-msg-label">Sent via WhatsApp · 3hrs ago</div>
+              Hey Aisha! Just a reminder — your first class is tomorrow at 7pm. Wear comfortable clothes and come 10 mins early. See you on the mats! 🥋
+            </div>
+          </div>
+          <div class="dp-event">
+            <div class="dp-event-top">
+              <div class="dp-event-left">
+                <div class="dp-avatar">WL</div>
+                <div>
+                  <div class="dp-event-name">Wei Ling</div>
+                  <div class="dp-event-trigger">Completed trial · Follow-up sent</div>
+                </div>
+              </div>
+              <div class="dp-badge badge-green">Post-trial follow-up</div>
+            </div>
+            <div class="dp-msg">
+              <div class="dp-msg-label">Sent via WhatsApp · Post-trial</div>
+              Hey Wei Ling! Hope you loved your first class tonight 🥋 Coach said you picked it up really fast. Ready to make it official? We'd love to have you join.
+            </div>
+          </div>
+          <div class="dp-event">
+            <div class="dp-event-top">
+              <div class="dp-event-left">
+                <div class="dp-avatar" style="background:#fef9c3;color:#a16207">DT</div>
+                <div>
+                  <div class="dp-event-name">Darren T.</div>
+                  <div class="dp-event-trigger">No response after trial · 3 days</div>
+                </div>
+              </div>
+              <div class="dp-badge badge-amber">Deal sent</div>
+            </div>
+            <div class="dp-msg">
+              <div class="dp-msg-label">Sent via WhatsApp · 9am today</div>
+              Hey Darren, still thinking it over? Sign up before Friday and get your first month at 20% off. Offer expires in 48hrs ⏳
+            </div>
+          </div>
+        </div>
+        <div class="dp-feed-title" style="margin-top:6px">Member engagement</div>
+        <div class="dp-feed-grid">
+          <div class="dp-event">
+            <div class="dp-event-top">
+              <div class="dp-event-left">
+                <div class="dp-avatar" style="background:#fce7f3;color:#be185d">PS</div>
+                <div>
+                  <div class="dp-event-name">Priya S.</div>
+                  <div class="dp-event-trigger">Trial 3 weeks ago · never joined</div>
+                </div>
+              </div>
+              <div class="dp-badge" style="background:#fce7f3;color:#be185d">Win-back</div>
+            </div>
+            <div class="dp-msg">
+              <div class="dp-msg-label">Sent via Email · 8am today</div>
+              Hey Priya! We're running a beginner intake this month — would love to see you give it another shot. Here's a link to book a free second trial →
+            </div>
+          </div>
+          <div class="dp-event">
+            <div class="dp-event-top">
+              <div class="dp-event-left">
+                <div class="dp-avatar" style="background:#fef9c3;color:#a16207">MK</div>
+                <div>
+                  <div class="dp-event-name">Marcus K.</div>
+                  <div class="dp-event-trigger">No check-in for 10 days</div>
+                </div>
+              </div>
+              <div class="dp-badge badge-amber">Re-engagement</div>
+            </div>
+            <div class="dp-msg">
+              <div class="dp-msg-label">Sent via WhatsApp · yesterday</div>
+              Hey Marcus, haven't seen you on the mats in a while! We saved your spot — come back this week and we'll throw in a free open mat session 🤙
+            </div>
+          </div>
+          <div class="dp-event">
+            <div class="dp-event-top">
+              <div class="dp-event-left">
+                <div class="dp-avatar" style="background:#dbeafe;color:#1d4ed8">FH</div>
+                <div>
+                  <div class="dp-event-name">Farid H.</div>
+                  <div class="dp-event-trigger">Membership renews in 5 days</div>
+                </div>
+              </div>
+              <div class="dp-badge badge-blue">Renewal reminder</div>
+            </div>
+            <div class="dp-msg">
+              <div class="dp-msg-label">Sent via WhatsApp · this morning</div>
+              Hey Farid! Your membership renews on the 20th. We've also got a new Saturday morning class starting next week — thought you'd be keen. See you soon!
+            </div>
+          </div>
+        </div>
+        <div class="dp-feed-title" style="margin-top:6px">Active campaigns</div>
+        <div class="dp-feed-grid">
+          <div class="dp-campaign">
+            <div class="dp-campaign-top">
+              <div>
+                <div class="dp-campaign-name">🎂 Birthday Month — 30% Off</div>
+                <div class="dp-campaign-sub">Auto-sends to members in their birthday month</div>
+              </div>
+              <div class="dp-badge badge-green">Always on</div>
+            </div>
+            <div class="dp-campaign-stats">
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">5</div><div class="dp-campaign-stat-label">Sent this month</div></div>
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">4</div><div class="dp-campaign-stat-label">Renewed early</div></div>
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">80%</div><div class="dp-campaign-stat-label">Redemption</div></div>
+            </div>
+            <div class="dp-campaign-bar-wrap">
+              <div class="dp-campaign-bar-label"><span>April birthdays</span><span>5 of 5 sent</span></div>
+              <div class="dp-campaign-bar"><div class="dp-campaign-bar-fill" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div class="dp-campaign">
+            <div class="dp-campaign-top">
+              <div>
+                <div class="dp-campaign-name">📅 Monthly Check-In</div>
+                <div class="dp-campaign-sub">Attendance recap + motivation nudge for all members</div>
+              </div>
+              <div class="dp-badge badge-green">Always on</div>
+            </div>
+            <div class="dp-campaign-stats">
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">62</div><div class="dp-campaign-stat-label">Sent</div></div>
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">18</div><div class="dp-campaign-stat-label">Replied</div></div>
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">29%</div><div class="dp-campaign-stat-label">Reply rate</div></div>
+            </div>
+            <div class="dp-campaign-bar-wrap">
+              <div class="dp-campaign-bar-label"><span>April send</span><span>Completed</span></div>
+              <div class="dp-campaign-bar"><div class="dp-campaign-bar-fill" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div class="dp-campaign">
+            <div class="dp-campaign-top">
+              <div>
+                <div class="dp-campaign-name">🤙 Bring a Friend — May</div>
+                <div class="dp-campaign-sub">Active members with 3+ months tenure</div>
+              </div>
+              <div class="dp-badge" style="background:#ede9fe;color:#7c3aed">Scheduled</div>
+            </div>
+            <div class="dp-campaign-stats">
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">38</div><div class="dp-campaign-stat-label">Eligible</div></div>
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">—</div><div class="dp-campaign-stat-label">Redeemed</div></div>
+              <div class="dp-campaign-stat"><div class="dp-campaign-stat-val">May 1</div><div class="dp-campaign-stat-label">Starts</div></div>
+            </div>
+            <div class="dp-campaign-bar-wrap">
+              <div class="dp-campaign-bar-label"><span>Starts in</span><span>16 days</span></div>
+              <div class="dp-campaign-bar"><div class="dp-campaign-bar-fill" style="width:0%;background:#a78bfa"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div style="text-align:center;margin-bottom:40px">
+    <div class="s-h" style="margin-bottom:12px">Small actions, big wins</div>
+    <div style="font-size:16px;color:#6b7280;max-width:520px;margin:0 auto;line-height:1.6">A follow-up sent at the right time. A reminder before someone forgets. A well-placed nudge that tips the decision. Each one feels small, but for a customer on the fence, it can make all the difference.</div>
+  </div>
+  <div class="ba-wrap">
+    <div class="ba-panel before">
+      <div class="ba-label">Without Rally</div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#fee2e2;color:#ef4444">WL</div>
+          <div><div class="ba-name">Wei Ling</div><div class="ba-sub">Completed trial · 3 days ago</div></div>
+        </div>
+        <div><div class="ba-status status-lost">No follow-up</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#fee2e2;color:#ef4444">MK</div>
+          <div><div class="ba-name">Marcus K.</div><div class="ba-sub">Hasn't checked in · 14 days</div></div>
+        </div>
+        <div><div class="ba-status status-lost">Unnoticed</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#fee2e2;color:#ef4444">PS</div>
+          <div><div class="ba-name">Priya S.</div><div class="ba-sub">Membership expired yesterday</div></div>
+        </div>
+        <div><div class="ba-status status-lost">Churned</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#fee2e2;color:#ef4444">DT</div>
+          <div><div class="ba-name">Darren T.</div><div class="ba-sub">Trial 2 weeks ago · never joined</div></div>
+        </div>
+        <div><div class="ba-status status-lost">Gone cold</div></div>
+      </div>
+      <div class="ba-footer">
+        <div><div class="ba-footer-num">$3,200</div><div class="ba-footer-label">lost this month</div></div>
+        <div style="font-size:22px">📉</div>
+      </div>
+    </div>
+    <div class="ba-panel after">
+      <div class="ba-label">With Rally</div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#dcfce7;color:#15803d">WL</div>
+          <div><div class="ba-name">Wei Ling</div><div class="ba-sub">Follow-up sent after trial</div></div>
+        </div>
+        <div><div class="ba-status status-ok">Converted</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#dcfce7;color:#15803d">MK</div>
+          <div><div class="ba-name">Marcus K.</div><div class="ba-sub">Re-engagement sent · day 10</div></div>
+        </div>
+        <div><div class="ba-status status-ok">Back in</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#fef9c3;color:#a16207">PS</div>
+          <div><div class="ba-name">Priya S.</div><div class="ba-sub">Renewal reminder sent · 5 days early</div></div>
+        </div>
+        <div><div class="ba-status status-ok">Renewed</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-row-left">
+          <div class="ba-avatar" style="background:#dcfce7;color:#15803d">DT</div>
+          <div><div class="ba-name">Darren T.</div><div class="ba-sub">Win-back deal sent · week 2</div></div>
+        </div>
+        <div><div class="ba-status status-ok">Re-engaged</div></div>
+      </div>
+      <div class="ba-footer">
+        <div><div class="ba-footer-num">$3,200</div><div class="ba-footer-label">recovered</div></div>
+        <div style="font-size:22px">📈</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="s-h">Customisable around how you already work</div>
+  <div class="s-sub">Every business runs differently. Rally is set up around your existing workflow — we figure out what works best together.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:40px">
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:24px">
+      <div style="font-size:22px;margin-bottom:12px">🔗</div>
+      <div style="font-size:14px;font-weight:700;color:#111827;margin-bottom:6px">Already on a CRM or booking platform?</div>
+      <div style="font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:16px">Rally is designed to work alongside the tools you use to manage members and bookings — we customise the setup to fit your stack.</div>
+      <div style="font-size:12px;font-weight:600;color:#374151;display:flex;align-items:center;gap:6px">
+        <span style="color:#15803d">→</span> We'll map out what works in our first call
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:24px">
+      <div style="font-size:22px;margin-bottom:12px">📋</div>
+      <div style="font-size:14px;font-weight:700;color:#111827;margin-bottom:6px">Running things on a spreadsheet?</div>
+      <div style="font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:16px">No problem. We've set Rally up from just a Google Sheet before. If your data is there, we can work with it.</div>
+      <div style="font-size:12px;font-weight:600;color:#374151;display:flex;align-items:center;gap:6px">
+        <span style="color:#15803d">→</span> No migration or fancy software needed
+      </div>
+    </div>
+    <div style="background:#f0faf0;border:1px solid #bbf7d0;border-radius:14px;padding:24px">
+      <div style="font-size:22px;margin-bottom:12px">✏️</div>
+      <div style="font-size:14px;font-weight:700;color:#111827;margin-bottom:6px">Starting from scratch? Even better.</div>
+      <div style="font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:16px">If you don't have a system yet, Rally can be the foundation. We help you set up a simple, structured process from day one.</div>
+      <div style="font-size:12px;font-weight:600;color:#15803d;display:flex;align-items:center;gap:6px">
+        <span>→</span> We set it up together
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="s-h">Set up in seconds. Just tell Rally what you want.</div>
+  <div class="s-sub">No complex setup. No learning curve. Describe what you need and Rally builds it — instantly.</div>
+  <div class="easy-wrap">
+    <div class="easy-chat">
+      <div class="chat-header">
+        <div class="chat-avatar">R</div>
+        <div>
+          <div class="chat-header-name">Rally AI</div>
+          <div class="chat-header-status"><div class="chat-status-dot"></div>Online</div>
+        </div>
+      </div>
+      <div class="chat-msgs" id="chat-msgs">
+        <div class="chat-msg user" id="cm1">
+          <div class="chat-bubble-label">You</div>
+          <div class="chat-bubble">Hey Rally, I want to launch a referral campaign — referrers get 30% off their next 3 months if the person they introduce converts.</div>
+        </div>
+        <div class="chat-typing" id="cm-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+        <div class="chat-msg rally" id="cm2">
+          <div class="chat-bubble-label">Rally</div>
+          <div class="chat-bubble">
+            On it! Here's what I'm setting up for you:
+            <div class="chat-action-list">
+              <div class="chat-action" id="ca1"><span class="chat-action-check">✓</span> Campaign: Referral Reward — April</div>
+              <div class="chat-action" id="ca2"><span class="chat-action-check">✓</span> Trigger: New member converts via referral link</div>
+              <div class="chat-action" id="ca3"><span class="chat-action-check">✓</span> Reward: 30% off next 3 months for referrer</div>
+              <div class="chat-action" id="ca4"><span class="chat-action-check">✓</span> Eligible: All active members with 1+ month tenure</div>
+              <div class="chat-action" id="ca5"><span class="chat-action-check">✓</span> Duration: Ongoing until paused</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-msg rally" id="cm3">
+          <div class="chat-bubble" style="background:#f0faf0;color:#15803d;">Should I also send an announcement to all current members to let them know about the campaign?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="easy-dash">
+      <div class="dash-label">Campaign being built</div>
+      <div class="camp-card">
+        <div class="camp-card-top">
+          <div class="camp-card-name">Referral Reward — April</div>
+          <div class="camp-status-badge" id="cs-badge" style="background:#fef9c3;color:#a16207">Building...</div>
+        </div>
+        <hr class="camp-divider">
+        <div class="camp-field" id="cf1"><div class="camp-field-label">Trigger</div><div class="camp-field-val">New member converts via referral link</div></div>
+        <div class="camp-field" id="cf2"><div class="camp-field-label">Reward</div><div class="camp-field-val">30% off next 3 months for referrer</div></div>
+        <div class="camp-field" id="cf3"><div class="camp-field-label">Eligible members</div><div class="camp-field-val">All active · 1+ month tenure · 38 members</div></div>
+        <div class="camp-field" id="cf4"><div class="camp-field-label">Duration</div><div class="camp-field-val">Ongoing until paused</div></div>
+        <hr class="camp-divider">
+        <div class="camp-question" id="camp-q">💬 Rally: Should I also announce this to all current members?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;padding-bottom:0">
+  <div class="cta-wrap">
+    <h2>Interested? Let's talk.</h2>
+    <p>We're looking for early partners to run free pilots with. If you think Rally could work for your business, let's find out together.</p>
+    <div class="cta-btns">
+      <button class="cta-btn-p">Book a 20-min call</button>
+    </div>
+  </div>
+</section>
+
+
+<script>
+// Trial conversion animation
+function runTrialAnim() {
+  const steps = ['tl1','tl2','tl3','tl4'];
+  steps.forEach(id => document.getElementById(id).classList.remove('active'));
+  steps.forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('active'), (i + 1) * 1100);
+  });
+  setTimeout(runTrialAnim, steps.length * 1100 + 2500);
+}
+
+// Retention animation
+function runRetentionAnim() {
+  const alert = document.getElementById('ret-alert');
+  const recovered = document.getElementById('ret-recovered');
+  const recovBars = ['rb6','rb7','rb8'];
+  const lowBars = ['rb4','rb5'];
+
+  alert.style.opacity = '0';
+  recovered.style.opacity = '0';
+  recovBars.forEach(id => document.getElementById(id).style.height = '0%');
+  lowBars.forEach(id => document.getElementById(id).style.height = id === 'rb4' ? '50%' : '25%');
+
+  setTimeout(() => {
+    lowBars.forEach(id => document.getElementById(id).style.height = id === 'rb4' ? '20%' : '8%');
+  }, 800);
+  setTimeout(() => { alert.style.opacity = '1'; }, 1800);
+  setTimeout(() => {
+    document.getElementById('rb6').style.height = '55%';
+    setTimeout(() => document.getElementById('rb7').style.height = '75%', 400);
+    setTimeout(() => document.getElementById('rb8').style.height = '85%', 800);
+  }, 3000);
+  setTimeout(() => { recovered.style.opacity = '1'; }, 4200);
+  setTimeout(runRetentionAnim, 7000);
+}
+
+// Before/after animation
+function runBeforeAfterAnim() {
+  const rows = document.querySelectorAll('.ba-row');
+  const footers = document.querySelectorAll('.ba-footer');
+
+  // reset
+  rows.forEach(r => r.classList.remove('visible'));
+  footers.forEach(f => f.classList.remove('visible'));
+
+  // Before panel rows first (0,1,2,3), then after panel rows (4,5,6,7)
+  // They appear paired: before row 1, then after row 1, then before row 2, etc.
+  const beforeRows = [rows[0], rows[1], rows[2], rows[3]];
+  const afterRows  = [rows[4], rows[5], rows[6], rows[7]];
+
+  beforeRows.forEach((row, i) => {
+    setTimeout(() => {
+      row.classList.add('visible');
+      setTimeout(() => afterRows[i] && afterRows[i].classList.add('visible'), 300);
+    }, i * 900);
+  });
+
+  // Show footers after all rows
+  setTimeout(() => footers.forEach(f => f.classList.add('visible')), beforeRows.length * 900 + 200);
+
+  setTimeout(runBeforeAfterAnim, beforeRows.length * 900 + 3000);
+}
+
+// Chat + campaign builder animation
+function runChatAnim() {
+  const ids = ['cm1','cm-typing','cm2','cm3'];
+  const actions = ['ca1','ca2','ca3','ca4','ca5'];
+  const fields = ['cf1','cf2','cf3','cf4'];
+  const badge = document.getElementById('cs-badge');
+  const campQ = document.getElementById('camp-q');
+
+  // reset
+  ids.forEach(id => { const el = document.getElementById(id); if(el) el.classList.remove('visible'); });
+  actions.forEach(id => document.getElementById(id).classList.remove('visible'));
+  fields.forEach(id => document.getElementById(id).classList.remove('visible'));
+  badge.classList.remove('visible');
+  campQ.classList.remove('visible');
+  badge.style.background = '#fef9c3'; badge.style.color = '#a16207'; badge.textContent = 'Building...';
+
+  // user message
+  setTimeout(() => document.getElementById('cm1').classList.add('visible'), 500);
+  // typing indicator
+  setTimeout(() => document.getElementById('cm-typing').classList.add('visible'), 1400);
+  // rally response
+  setTimeout(() => {
+    document.getElementById('cm-typing').classList.remove('visible');
+    document.getElementById('cm2').classList.add('visible');
+    badge.classList.add('visible');
+  }, 2800);
+  // action items + fields appear together
+  actions.forEach((id, i) => {
+    setTimeout(() => {
+      document.getElementById(id).classList.add('visible');
+      if (fields[i]) document.getElementById(fields[i]).classList.add('visible');
+    }, 3200 + i * 500);
+  });
+  // final status + question
+  setTimeout(() => {
+    badge.style.background = '#dcfce7'; badge.style.color = '#15803d'; badge.textContent = 'Live ✓';
+    document.getElementById('cm3').classList.add('visible');
+    campQ.classList.add('visible');
+  }, 3200 + actions.length * 500 + 400);
+
+  setTimeout(runChatAnim, 3200 + actions.length * 500 + 5000);
+}
+
+function runInsightAnim() {
+  const insights = [
+    {i:'DK',ab:'#dcfce7',ac:'#15803d',n:'Darren K.',t:'Trial ended · Earlier today',a:"Follow-up queued — striking while interest is highest.",bb:'#fef9c3',bc:'#a16207',b:'Queued',b1:'Approve',b2:'Skip'},
+    {i:'PM',ab:'#dbeafe',ac:'#1d4ed8',n:'Priya M.',t:'No visit · 14 days',a:"Re-engagement nudge ready — before she fully drifts away.",bb:'#dbeafe',bc:'#1d4ed8',b:'Ready to send',b1:'Approve',b2:'Skip'},
+    {i:'MT',ab:'#dcfce7',ac:'#15803d',n:'Marcus T.',t:'Membership · Expiring in 5 days',a:"Renewal reminder sent — prevents a passive lapse.",bb:'#dcfce7',bc:'#15803d',b:'Sent ✓',b1:'Got it',b2:'View'},
+    {i:'WL',ab:'#f0faf0',ac:'#15803d',n:'Wei Ling',t:'Converted · Just now 🎉',a:"Signed up after her post-trial follow-up. Timing made the difference.",bb:'#dcfce7',bc:'#15803d',b:'Won',b1:'Got it',b2:'View'},
+    {i:'JS',ab:'#ede9fe',ac:'#7c3aed',n:'Jamie S.',t:'3-month milestone · Today',a:"Appreciation message ready — members who feel noticed stay longer.",bb:'#dbeafe',bc:'#1d4ed8',b:'Ready to send',b1:'Approve',b2:'Skip'},
+    {i:'AC',ab:'#fce7f3',ac:'#be185d',n:'Alex C.',t:'Birthday month · This month',a:"Birthday offer queued — small gesture, strong retention impact.",bb:'#dbeafe',bc:'#1d4ed8',b:'Ready to send',b1:'Approve',b2:'Skip'},
+    {i:'RP',ab:'#dcfce7',ac:'#15803d',n:'Ryan P.',t:'Trial booked · Tomorrow',a:"Pre-class reminder sent — reduces no-shows, sets the right tone.",bb:'#dcfce7',bc:'#15803d',b:'Sent ✓',b1:'Got it',b2:'View'},
+    {i:'SK',ab:'#fef9c3',ac:'#a16207',n:'Sarah K.',t:'Cold lead · 30 days ago',a:"Win-back queued — some leads just need a second moment.",bb:'#fef9c3',bc:'#a16207',b:'Queued',b1:'Approve',b2:'Skip'},
+    {i:'LT',ab:'#f0faf0',ac:'#15803d',n:'Lisa T.',t:'Referral · Just now 🎉',a:"Referred a friend — thank-you sent. Loyalty deserves recognition.",bb:'#dcfce7',bc:'#15803d',b:'Sent ✓',b1:'Got it',b2:'View'},
+    {i:'BH',ab:'#dbeafe',ac:'#1d4ed8',n:'Ben H.',t:'Attendance dropping · 3 weeks',a:"Check-in ready — early outreach before disengagement sets in.",bb:'#dbeafe',bc:'#1d4ed8',b:'Ready to send',b1:'Approve',b2:'Skip'}
+  ];
+  const feed = document.getElementById('riFeed');
+  if (!feed) return;
+  const CARD_H = 114, GAP = 8, PAD = 12, MAX = 3;
+  let active = [], nextIdx = 0;
+  function topFor(slot) { return PAD + slot * (CARD_H + GAP); }
+  function makeCard(d) {
+    const el = document.createElement('div');
+    el.className = 'ri-card';
+    el.innerHTML = `<div class="ri-card-top"><div class="ri-avatar" style="background:${d.ab};color:${d.ac}">${d.i}</div><div class="ri-card-meta"><div class="ri-card-name">${d.n}</div><div class="ri-card-trigger">${d.t}</div></div><div class="ri-card-badge" style="background:${d.bb};color:${d.bc}">${d.b}</div></div><div class="ri-card-action">${d.a}</div><div class="ri-card-btns"><button class="ri-btn-p">${d.b1}</button><button class="ri-btn-s">${d.b2}</button></div>`;
+    el.style.top = (-CARD_H) + 'px';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(-6px)';
+    return el;
+  }
+  function addCard() {
+    const d = insights[nextIdx % insights.length]; nextIdx++;
+    const card = makeCard(d);
+    feed.appendChild(card);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      card.style.top = topFor(0) + 'px';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+      active.forEach((c, i) => { c.style.top = topFor(i + 1) + 'px'; });
+      if (active.length === MAX) {
+        const out = active[MAX - 1];
+        out.style.opacity = '0';
+        out.style.transform = 'translateY(6px)';
+        setTimeout(() => { if (out.parentNode) out.parentNode.removeChild(out); }, 560);
+        active = [card, ...active.slice(0, MAX - 1)];
+      } else {
+        active = [card, ...active];
+      }
+    }));
+  }
+  addCard();
+  setTimeout(addCard, 700);
+  setTimeout(addCard, 1400);
+  setInterval(addCard, 3200);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  runTrialAnim();
+  runRetentionAnim();
+  runBeforeAfterAnim();
+  runChatAnim();
+  runInsightAnim();
+});
+</script>
+
+<footer>
+  <div class="ft-logo">Rally</div>
+  <div class="ft-text">© 2026 Rally · Built for boutique fitness studios in Singapore</div>
+  <div class="ft-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
