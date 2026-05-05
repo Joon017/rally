@@ -2120,5 +2120,29 @@ window.addEventListener('message', (e) => {
 window.parent.postMessage({type:'__edit_mode_available'}, '*');
 </script>
 
+<script>
+(function(){
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbwFFGLG0doO4dcH-guxkmG9I_PU-m4RyopDwviT9U2wkURWExQqiIkbfr2KXQbCZyASAg/exec";
+    const KEY = "rally-visit-notified-at";
+    const DAY = 24*60*60*1000;
+    try {
+        const last = +localStorage.getItem(KEY) || 0;
+        if (Date.now() - last < DAY) return;
+    } catch (_) {}
+    setTimeout(function(){
+        const data = JSON.stringify({
+            ua: navigator.userAgent,
+            ref: document.referrer || "direct",
+            tz: Intl.DateTimeFormat().resolvedOptions().timeZone
+        });
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(ENDPOINT, new Blob([data], { type: "text/plain" }));
+        } else {
+            fetch(ENDPOINT, { method: "POST", body: data }).catch(() => {});
+        }
+        try { localStorage.setItem(KEY, String(Date.now())); } catch (_) {}
+    }, 2000);
+})();
+</script>
 </body>
 </html>
