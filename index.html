@@ -1,2148 +1,703 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Rally — Your engagement assistant</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
-<script>
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#c45a3a",
-  "bgTone": "#fbf7f0",
-  "headlineFont": "Instrument Serif",
-  "darkHero": false
-}/*EDITMODE-END*/;
-</script>
-<style>
-  :root {
-    --bg: #f6f1e8;
-    --bg-2: #efe8db;
-    --bg-card: #fffaf2;
-    --ink: #1f1710;
-    --ink-2: #4a3e32;
-    --ink-3: #7a6d5e;
-    --ink-4: #a89a88;
-    --line: #e6ddc9;
-    --line-2: #d8ccb4;
-    --accent: #c45a3a;
-    --accent-soft: #e8c7b5;
-    --accent-ink: #8a3a22;
-    --green: #5a7a4a;
-    --green-soft: #dbe4cf;
-    --amber: #b88330;
-    --red: #b54a3a;
-    --blue: #4a6a8a;
-    --radius: 14px;
-    --radius-lg: 20px;
-    --radius-sm: 8px;
-    --shadow-sm: 0 1px 2px rgba(45,30,15,0.04), 0 2px 6px rgba(45,30,15,0.03);
-    --shadow-md: 0 2px 6px rgba(45,30,15,0.05), 0 12px 32px rgba(45,30,15,0.06);
-    --shadow-lg: 0 8px 40px rgba(45,30,15,0.10);
-    --headline: 'Instrument Serif', 'Fraunces', Georgia, serif;
-    --sans: 'Inter Tight', -apple-system, system-ui, sans-serif;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.005em;
-    overflow-x: hidden;
-  }
-  ::selection { background: var(--accent); color: #fff; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rally — Automate your lead research and qualification</title>
+  <meta name="description" content="Rally is an AI agent that automates lead research and qualification. Describe what you're looking for in plain English; Rally researches the live web, qualifies each business against your criteria, and returns a structured outreach list with verified contact information." />
+  <meta name="keywords" content="lead research automation, AI lead qualification, autonomous sourcing agent, AI prospecting, B2B lead generation AI, lead sourcing tool, alternative to Apollo, alternative to ZoomInfo, alternative to Clay, AI sales agent, automated lead generation" />
+  <link rel="canonical" href="https://rally.research/" />
 
-  /* ---------- Layout ---------- */
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
-  section { padding: 110px 0; position: relative; }
-  @media (max-width: 720px) {
-    section { padding: 72px 0; }
-    .wrap { padding: 0 20px; }
-  }
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rally — Automate your lead research and qualification" />
+  <meta property="og:description" content="An AI agent that researches the live web, qualifies businesses against your exact criteria, and returns structured outreach lists." />
+  <meta property="og:site_name" content="Rally" />
+  <meta property="og:url" content="https://rally.research/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rally — Automate your lead research and qualification" />
+  <meta name="twitter:description" content="An AI agent that researches the live web, qualifies businesses against your exact criteria, and returns structured outreach lists." />
 
-  /* ---------- Type ---------- */
-  h1, h2, h3 { font-family: var(--headline); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); }
-  h1 { font-size: clamp(38px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.025em; }
-  h2 { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.05; }
-  h3 { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.15; }
-  h1 em, h2 em, h3 em { font-style: italic; color: var(--accent); font-family: var(--headline); font-weight: 400; }
-  h1 em.hl, h2 em.hl {
-    font-style: normal;
-    font-family: var(--headline);
-    color: var(--green);
-    position: relative;
-    white-space: nowrap;
-  }
-  h1 em.hl::after, h2 em.hl::after {
-    content: "";
-    position: absolute;
-    left: 0.02em; right: 0.02em;
-    bottom: 0.06em;
-    height: 0.08em;
-    background: var(--green);
-    border-radius: 2px;
-    opacity: 0.85;
-  }
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-3);
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-  p.lead { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 60ch; }
-  .muted { color: var(--ink-3); }
+  <!-- AI / GEO hints -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="ai-content-declaration" content="human-written-marketing" />
 
-  /* ---------- Nav ---------- */
-  nav.top {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    background: rgba(246, 241, 232, 0.78);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s, background 0.3s;
+  <!-- JSON-LD: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Rally",
+    "applicationCategory": "BusinessApplication",
+    "applicationSubCategory": "Lead Generation, Sales Intelligence, AI Agent",
+    "operatingSystem": "Web",
+    "description": "Rally is an AI-powered sourcing and qualification agent that automates the entire workflow of lead discovery, business research, qualification, and contact collection. Users describe what they are looking for in plain English; Rally researches the live web in real time, evaluates whether businesses match the requested criteria, and compiles structured outreach lists automatically.",
+    "url": "https://rally.research/",
+    "offers": [
+      { "@type": "Offer", "name": "Starter", "price": "0", "priceCurrency": "USD", "description": "Free tier — 3 sourcing runs per month, up to 50 qualified leads per run." },
+      { "@type": "Offer", "name": "Operator", "price": "49", "priceCurrency": "USD", "description": "Flat subscription with pay-per-search usage. Unlimited runs, up to 1,000 leads per run, persistent sourcing memory, custom qualification criteria, API access." },
+      { "@type": "Offer", "name": "Scale", "description": "Custom volume pricing for agencies and teams. Multi-workspace, SSO, priority research lanes, dedicated support." }
+    ],
+    "featureList": [
+      "Autonomous lead sourcing from the live web",
+      "Qualification against custom criteria (technology signals, software usage, review thresholds, social activity, hiring activity)",
+      "Real-time contact extraction (email, phone, contact form, Instagram, LinkedIn, WhatsApp)",
+      "Persistent sourcing memory and coverage tracking",
+      "Goal-based runs (e.g. 500 qualified leads)",
+      "Transparent sourcing trail and audit log",
+      "Pay-per-search pricing with no enterprise lock-in"
+    ]
   }
-  nav.top.scrolled { border-color: var(--line); }
-  nav.top .inner {
-    max-width: 1180px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 32px;
-  }
-  .logo {
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--headline); font-size: 24px; letter-spacing: -0.02em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .logo-mark {
-    width: 26px; height: 26px; border-radius: 7px;
-    background: var(--ink);
-    display: grid; place-items: center;
-    color: var(--bg);
-    font-family: var(--headline);
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1;
-    padding-bottom: 2px;
-  }
-  nav.top ul { list-style: none; display: flex; gap: 30px; }
-  nav.top a { color: var(--ink-2); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
-  nav.top a:hover { color: var(--ink); }
-  @media (max-width: 780px) { nav.top ul { display: none; } }
+  </script>
 
-  /* ---------- Buttons ---------- */
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 14px 22px;
-    border-radius: 999px;
-    font-family: var(--sans); font-size: 15px; font-weight: 500;
-    letter-spacing: -0.005em;
-    text-decoration: none;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: transform 0.15s ease, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Rally",
+    "alternateName": "Rally Research",
+    "url": "https://rally.research/",
+    "description": "Rally builds an autonomous sourcing and qualification agent for modern outbound prospecting and business research."
   }
-  .btn-primary {
-    background: var(--ink);
-    color: var(--bg);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 2px 8px rgba(30,20,10,0.15);
-  }
-  .btn-primary:hover { background: #000; transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--ink);
-    border-color: var(--line-2);
-  }
-  .btn-ghost:hover { background: var(--bg-2); border-color: var(--ink-4); }
-  .btn-accent {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(196, 90, 58, 0.3);
-  }
-  .btn-accent:hover { filter: brightness(1.05); transform: translateY(-1px); }
-  .btn-sm { padding: 9px 16px; font-size: 14px; white-space: nowrap; line-height: 1.2; }
-  .arrow { display: inline-block; transition: transform 0.2s; }
-  .btn:hover .arrow { transform: translateX(3px); }
+  </script>
 
-  /* ---------- HERO ---------- */
-  .hero {
-    padding-top: 140px;
-    padding-bottom: 60px;
-    position: relative;
-    overflow: hidden;
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Rally?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Rally is an AI-powered sourcing and qualification agent that automates lead research. You describe what you're looking for in plain English, and Rally researches the live web in real time, qualifies each discovered business against your criteria, extracts publicly available contact information, and returns a structured outreach list." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Rally different from Apollo or ZoomInfo?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Apollo and ZoomInfo are static B2B databases that rely on pre-indexed company datasets. They struggle with smaller, newer, niche, and local businesses, and cannot reason about nuanced qualification criteria like specific technology usage or feature presence. Rally researches the live web in real time and qualifies each business against your specific requirements before returning it." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Rally different from Clay?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Clay focuses on enrichment — improving lead lists you already have. Rally focuses on the earlier stage: discovering and qualifying the businesses in the first place. Rally and Clay compose well; Rally produces a qualified seed list, Clay enriches it further." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Rally different from ChatGPT or Claude with web search?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Generic LLMs can perform one-off lookups but lack persistent sourcing state, retry logic, deduplication, coverage tracking, and goal-based execution. Rally is purpose-built for sourcing as a workflow rather than a single chat turn — it keeps researching until your target lead count is reached or the search space is exhausted." }
+      },
+      {
+        "@type": "Question",
+        "name": "What kind of qualification criteria can Rally evaluate?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Rally can qualify businesses against software usage, booking systems, online ordering availability, website features, social media activity, review counts, business size, hiring activity, service offerings, geographic relevance, contact availability, technology signals, and more." }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does Rally's data come from?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Rally only uses publicly available web data — search engines, business directories, public maps listings, public social profiles, and business websites. Contact information is limited to publicly published information. Rally does not access private data, gated platforms, or paid databases." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does goal-based sourcing work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You specify a target — for example 500 qualified leads — and Rally keeps running. It retries failed sources, expands into adjacent discovery paths, and tracks sourcing memory between runs so coverage compounds. The run completes when the target is met or the search space is exhausted." }
+      },
+      {
+        "@type": "Question",
+        "name": "Who is Rally for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Rally is built for solo founders, agencies, recruiters, outbound sales teams, partnerships teams, and SMB operators running targeted outreach campaigns — especially anyone working with fragmented industries, niche verticals, or local businesses outside traditional enterprise datasets." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Rally cost?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Rally offers a free Starter tier with 3 sourcing runs per month, an Operator plan at $49 per month plus pay-per-search usage for unlimited runs, and custom Scale pricing for agencies and teams running sourcing at volume. Pricing is illustrative ahead of public launch." }
+      }
+    ]
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -40%; right: -20%;
-    width: 900px; height: 900px;
-    background: radial-gradient(circle at center, rgba(196,90,58,0.14), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero .inner {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 32px;
-    align-items: center;
-    position: relative; z-index: 1;
-  }
-  @media (max-width: 680px) {
-    .hero .inner { grid-template-columns: 1fr; }
-    .hero-preview {
-      width: 100%;
-      max-width: 420px;
-      margin: 24px auto 0;
-    }
-  }
-  @media (max-width: 480px) {
-    .hero-preview { display: none; }
-  }
-  .hero h1 { margin: 20px 0 28px; }
-  .hero .lead { margin-bottom: 36px; max-width: 52ch; }
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-  .hero-note {
-    margin-top: 28px;
-    font-size: 13px; color: var(--ink-3);
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  .dot-live {
-    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--green); position: relative;
-  }
-  .dot-live::after {
-    content: ''; position: absolute; inset: -3px;
-    border-radius: 50%; background: var(--green);
-    opacity: 0.3;
-    animation: ping 2s ease-out infinite;
-  }
-  @keyframes ping { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.5); opacity: 0; } }
+  </script>
 
-  /* Hero product preview — Live member insights card */
-  .hero-preview {
-    position: relative;
-    width: 100%;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: 0;
-  }
-  .hp-eyebrow {
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--ink-3);
-    margin: 0 0 14px 4px;
-  }
-  .hp-eyebrow em { font-family: var(--headline); font-style: italic; color: var(--ink-2); font-size: 15px; }
-  .insights-card {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg), 0 30px 60px -20px rgba(30,20,10,0.15);
-    overflow: hidden;
-  }
-  .insights-head {
-    display: flex; align-items: center; gap: 10px;
-    padding: 16px 20px;
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--line);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .insights-head .live-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--green);
-    position: relative;
-  }
-  .insights-head .live-dot::after {
-    content: ""; position: absolute; inset: -4px; border-radius: 50%;
-    border: 2px solid var(--green); opacity: 0.4;
-    animation: ping 2s ease-out infinite;
-  }
-  .insights-body {
-    padding: 14px;
-    display: flex; flex-direction: column; gap: 12px;
-    height: 440px;
-    overflow: hidden;
-    position: relative;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
-  }
-  .insight-row {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    background: var(--bg-card);
-    flex-shrink: 0;
-    opacity: 0;
-    transform: translateY(24px) scale(0.96);
-    animation: row-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
-    will-change: transform, opacity;
-  }
-  .insight-row.leaving {
-    opacity: 0;
-    transform: translateY(-12px) scale(0.98);
-  }
-  @keyframes row-pop {
-    0%   { opacity: 0; transform: translateY(24px) scale(0.94); }
-    60%  { opacity: 1; transform: translateY(-2px) scale(1.01); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  .insight-top {
-    display: flex; align-items: flex-start; gap: 12px;
-  }
-  .insight-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: grid; place-items: center;
-    font-family: var(--sans); font-weight: 600; font-size: 12px;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-  }
-  .insight-avatar.green { background: #d7ecd4; color: #2f5d2a; }
-  .insight-avatar.blue  { background: #d9e4ef; color: #2d4d70; }
-  .insight-avatar.sage  { background: #d5e4d2; color: #3a5a38; }
-  .insight-meta { flex: 1; min-width: 0; }
-  .insight-name { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.2; }
-  .insight-sub { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
-  .insight-pill {
-    font-size: 11px; font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .insight-pill.sent  { background: #dff0da; color: #2f6a2a; }
-  .insight-pill.ready { background: #dde7f2; color: #2e4d75; border: 0; }
-  .insight-pill.queued{ background: #f3ead1; color: #7a5a1a; }
-  .insight-body {
-    font-size: 13.5px;
-    color: var(--ink-2);
-    line-height: 1.5;
-    margin: 12px 0 14px;
-  }
-  .insight-actions {
-    display: flex; gap: 8px;
-  }
-  .act {
-    font-family: var(--sans);
-    font-size: 12.5px; font-weight: 500;
-    line-height: 1.2;
-    white-space: nowrap;
-    padding: 9px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    background: var(--bg-card);
-    color: var(--ink);
-    cursor: pointer;
-    transition: transform 0.15s, background 0.15s;
-  }
-  .act:hover { transform: translateY(-1px); }
-  .act.primary {
-    background: #2f5d2a;
-    color: #fff;
-    border-color: #2f5d2a;
-  }
-  .act.primary:hover { background: #264b22; }
-  @keyframes ping-ring { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.5); opacity: 0; } }
-
-  /* ---------- Verticals marquee ---------- */
-  .verticals {
-    padding: 40px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: var(--bg-2);
-    overflow: hidden;
-  }
-  .verticals-label {
-    text-align: center;
-    font-family: var(--mono); font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.14em; color: var(--ink-3);
-    margin-bottom: 22px;
-  }
-  .marquee {
-    display: flex;
-    gap: 48px;
-    animation: scroll 40s linear infinite;
-    width: max-content;
-  }
-  .marquee:hover { animation-play-state: paused; }
-  .vertical {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-family: var(--headline); font-size: 26px; color: var(--ink-2);
-    white-space: nowrap;
-    font-style: italic;
-  }
-  .vertical-icon {
-    width: 28px; height: 28px; color: var(--accent);
-    flex-shrink: 0;
-  }
-  .vertical-dot { color: var(--line-2); }
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* ---------- Problem section ---------- */
-  .problem h2 { max-width: 20ch; margin: 16px 0 24px; }
-  .problem-head { max-width: 64ch; margin-bottom: 64px; }
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  @media (max-width: 860px) { .problem-grid { grid-template-columns: 1fr; } }
-  .problem-card {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    display: flex; flex-direction: column;
-    min-height: 320px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .problem-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-  .problem-icon {
-    width: 44px; height: 44px;
-    margin-bottom: 28px;
-    color: var(--accent);
-  }
-  .problem-card h3 { margin-bottom: 12px; }
-  .problem-card p { color: var(--ink-2); font-size: 15px; margin-bottom: auto; }
-  .problem-stat {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px dashed var(--line-2);
-    display: flex; align-items: baseline; gap: 10px;
-  }
-  .problem-stat .num {
-    font-family: var(--headline); font-size: 38px;
-    color: var(--ink); letter-spacing: -0.02em;
-  }
-  .problem-stat .desc {
-    font-size: 12px; color: var(--ink-3);
-    line-height: 1.35; max-width: 18ch;
-  }
-
-  /* ---------- Attention / showcase ---------- */
-  .attention { background: var(--bg-2); }
-  .attention-head { max-width: 60ch; margin-bottom: 64px; }
-  .attention h2 { margin: 16px 0 24px; max-width: 24ch; }
-  .channels {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  @media (max-width: 860px) { .channels { grid-template-columns: 1fr; } }
-  .channel-card {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-    position: relative;
-    overflow: hidden;
-  }
-  .channel-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 22px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--line);
-  }
-  .channel-header .left {
-    display: flex; align-items: center; gap: 12px;
-  }
-  .channel-icon-wrap {
-    width: 40px; height: 40px; border-radius: 10px;
-    display: grid; place-items: center;
-  }
-  .channel-icon-wrap.wa { background: #25d36610; color: #1a9e52; }
-  .channel-icon-wrap.em { background: #4a6a8a15; color: var(--blue); }
-  .channel-icon-wrap.sm { background: #b8833015; color: var(--amber); }
-  .channel-icon-wrap.pn { background: #c45a3a15; color: var(--accent); }
-  .channel-type { font-size: 13px; font-weight: 600; }
-  .channel-sender { font-size: 11px; color: var(--ink-3); }
-  .channel-label {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--ink-3);
-    background: var(--bg-2);
-    padding: 4px 10px; border-radius: 99px;
-  }
-  .msg-subject {
-    font-size: 14px; font-weight: 600;
-    margin-bottom: 10px;
-  }
-  .msg-body {
-    font-size: 14px; line-height: 1.55;
-    color: var(--ink-2);
-  }
-  .msg-body strong { color: var(--ink); font-weight: 600; }
-  .msg-cta {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 8px 14px;
-    background: var(--accent);
-    color: #fff; font-size: 12px; font-weight: 500;
-    border-radius: 6px;
-    text-decoration: none;
-  }
-  .msg-receipt {
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
-    font-size: 11px;
-    color: var(--ink-3);
-    display: flex; gap: 16px;
-  }
-  .msg-receipt span { display: inline-flex; align-items: center; gap: 4px; }
-  .tick { color: #1a9e52; }
-
-  /* ---------- Pillars ---------- */
-  .pillars { padding-bottom: 40px; }
-  .pillars-head { text-align: center; max-width: 56ch; margin: 0 auto 64px; }
-  .pillars-head h2 { margin: 16px 0 20px; }
-  .pillars-head .eyebrow { justify-content: center; }
-  .pillar {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 80px;
-    align-items: center;
-    margin-bottom: 120px;
-    padding-bottom: 120px;
-    border-bottom: 1px solid var(--line);
-  }
-  .pillar:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .pillar.reverse > :first-child { order: 2; }
-  @media (max-width: 900px) {
-    .pillar { grid-template-columns: 1fr; gap: 40px; }
-    .pillar.reverse > :first-child { order: 0; }
-  }
-  .pillar-tag {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--mono); font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--accent-ink);
-    background: var(--accent-soft);
-    padding: 6px 12px; border-radius: 99px;
-    margin-bottom: 20px;
-  }
-  .pillar h3 {
-    font-size: clamp(32px, 3.6vw, 44px);
-    margin-bottom: 20px;
-  }
-  .pillar p.lead { margin-bottom: 30px; }
-  .pillar ul { list-style: none; }
-  .pillar li {
-    font-size: 15px; color: var(--ink-2);
-    padding: 12px 0 12px 26px;
-    border-bottom: 1px dashed var(--line-2);
-    position: relative;
-  }
-  .pillar li:last-child { border-bottom: none; }
-  .pillar li::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 19px;
-    width: 14px; height: 2px;
-    background: var(--accent);
-  }
-
-  /* Timeline visual */
-  .timeline {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    box-shadow: var(--shadow-md);
-    position: relative;
-  }
-  .timeline-label {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--ink-3);
-    margin-bottom: 22px;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .timeline-label .status { color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
-  .timeline-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
-  .timeline-step {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 14px 0;
-    position: relative;
-  }
-  .timeline-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 17px; top: 42px; bottom: -10px;
-    width: 2px;
-    background: repeating-linear-gradient(to bottom, var(--line-2) 0 3px, transparent 3px 6px);
-  }
-  .step-dot {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--bg-2);
-    border: 1px solid var(--line-2);
-    color: var(--ink-2);
-    display: grid; place-items: center;
-    flex-shrink: 0;
-    position: relative; z-index: 1;
-  }
-  .step-dot svg { width: 16px; height: 16px; }
-  .step-dot.done { background: var(--green); border-color: var(--green); color: #fff; }
-  .step-dot.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .step-dot.active::before {
-    content: '';
-    position: absolute; inset: -4px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.2;
-    animation: ping 2s infinite;
-  }
-  .step-body { flex: 1; padding-top: 6px; }
-  .step-title { font-size: 14px; font-weight: 600; }
-  .step-detail { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
-  .step-time {
-    font-family: var(--mono); font-size: 11px; color: var(--ink-4);
-    margin-top: 8px;
-  }
-
-  /* Retention card */
-  .retention-viz {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    box-shadow: var(--shadow-md);
-  }
-  .retention-chart {
-    position: relative;
-    padding: 20px 0 40px;
-    height: 200px;
-  }
-  .chart-line {
-    position: absolute; inset: 20px 0 40px;
-  }
-  .alert-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 16px;
-    background: #fef5f0;
-    border: 1px solid var(--accent-soft);
-    border-radius: 12px;
-    margin-top: 10px;
-    font-size: 13px;
-  }
-  .alert-row.success {
-    background: #f0f6e9;
-    border-color: #c8dbb0;
-  }
-  .alert-row svg { width: 18px; height: 18px; flex-shrink: 0; }
-  .alert-row.alert svg { color: var(--accent); }
-  .alert-row.success svg { color: var(--green); }
-
-  /* ---------- Dashboard section ---------- */
-  .dashboard-sec { background: var(--ink); color: var(--bg); padding: 140px 0; }
-  .dashboard-sec h2 { color: var(--bg); }
-  .dashboard-sec h2 em { color: #e8a87a; }
-  .dashboard-sec .eyebrow { color: #a89a88; }
-  .dashboard-sec .eyebrow::before { background: #e8a87a; }
-  .dashboard-sec .lead { color: #c5b6a0; }
-  .dashboard-head { text-align: center; max-width: 56ch; margin: 0 auto 64px; }
-  .dashboard-head .eyebrow { justify-content: center; }
-  .dashboard-head h2 { margin: 16px 0 20px; }
-
-  .dashboard {
-    background: #28201a;
-    border: 1px solid #3a2e24;
-    border-radius: 24px;
-    padding: 4px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    overflow: hidden;
-  }
-  .db-chrome {
-    display: flex; align-items: center; gap: 8px;
-    padding: 14px 18px;
-    border-bottom: 1px solid #3a2e24;
-  }
-  .db-chrome .dots { display: flex; gap: 6px; }
-  .db-chrome .dots span { width: 10px; height: 10px; border-radius: 50%; background: #4a3e34; }
-  .db-chrome .title {
-    font-family: var(--mono); font-size: 11px;
-    color: #8a7a6a;
-    margin-left: auto;
-  }
-  .db-body {
-    padding: 32px;
-    display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 24px;
-  }
-  @media (max-width: 900px) { .db-body { grid-template-columns: 1fr; padding: 24px; } }
-  .db-sidebar h4 {
-    font-family: var(--headline); font-size: 22px;
-    color: var(--bg); margin-bottom: 4px;
-    font-style: italic;
-  }
-  .db-date {
-    font-family: var(--mono); font-size: 11px;
-    color: #8a7a6a; margin-bottom: 28px;
-  }
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .kpi {
-    background: #20180f;
-    border: 1px solid #3a2e24;
-    border-radius: 12px;
-    padding: 18px;
-  }
-  .kpi .k-label {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: #8a7a6a;
-    margin-bottom: 8px;
-  }
-  .kpi .k-value {
-    font-family: var(--headline); font-size: 36px;
-    color: var(--bg); letter-spacing: -0.02em;
-    line-height: 1;
-  }
-  .kpi .k-change {
-    font-size: 12px;
-    color: #9dc07c;
-    margin-top: 6px;
-    display: inline-flex; align-items: center; gap: 4px;
-  }
-  .kpi .k-change.neutral { color: #c5b6a0; }
-
-  .db-main {
-    display: flex; flex-direction: column; gap: 18px;
-  }
-  .db-card {
-    background: #20180f;
-    border: 1px solid #3a2e24;
-    border-radius: 12px;
-    padding: 20px;
-  }
-  .db-card-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 16px;
-  }
-  .db-card-header h5 {
-    font-family: var(--sans); font-size: 13px; font-weight: 600;
-    color: var(--bg);
-  }
-  .db-card-header .pill {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: #9dc07c;
-    background: rgba(157, 192, 124, 0.12);
-    padding: 3px 8px; border-radius: 99px;
-  }
-  .pipeline-item {
-    display: flex; align-items: center; gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px dashed #3a2e24;
-  }
-  .pipeline-item:last-child { border-bottom: none; }
-  .pi-avatar {
-    width: 34px; height: 34px; border-radius: 50%;
-    display: grid; place-items: center;
-    font-family: var(--headline); font-size: 14px; color: var(--bg);
-    flex-shrink: 0;
-  }
-  .pi-avatar.a1 { background: #5a7a9c; }
-  .pi-avatar.a2 { background: #b8834a; }
-  .pi-avatar.a3 { background: #8a6a9c; }
-  .pi-avatar.a4 { background: #7a9c5a; }
-  .pi-info { flex: 1; min-width: 0; }
-  .pi-name { font-size: 13px; color: var(--bg); font-weight: 500; }
-  .pi-detail { font-size: 11px; color: #8a7a6a; margin-top: 2px; }
-  .pi-status {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 4px 8px; border-radius: 4px;
-    white-space: nowrap;
-  }
-  .pi-status.reminder { color: #e8c7a0; background: rgba(232,199,160,0.1); }
-  .pi-status.followup { color: #9dc07c; background: rgba(157,192,124,0.1); }
-  .pi-status.deal { color: #e8a87a; background: rgba(232,168,122,0.1); }
-  .pi-status.winback { color: #c09cd6; background: rgba(192,156,214,0.1); }
-
-  .summary-box {
-    background: #20180f;
-    border: 1px solid #3a2e24;
-    border-radius: 12px;
-    padding: 22px;
-    position: relative;
-  }
-  .summary-box .badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: #e8a87a;
-    margin-bottom: 14px;
-  }
-  .summary-text {
-    font-size: 14px; line-height: 1.65;
-    color: #d8cab3;
-  }
-  .summary-text em { color: var(--bg); font-style: normal; font-weight: 500; }
-
-  /* ---------- Small / big wins ---------- */
-  .wins .wins-head { max-width: 64ch; margin-bottom: 64px; }
-  .wins h2 { margin: 16px 0 24px; max-width: 24ch; }
-  .compare {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    position: relative;
-  }
-  .compare::before {
-    content: 'vs';
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--headline); font-style: italic;
-    font-size: 32px;
-    background: var(--bg);
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    display: grid; place-items: center;
-    color: var(--ink-3);
-    border: 1px solid var(--line);
-    z-index: 2;
-  }
-  @media (max-width: 820px) {
-    .compare { grid-template-columns: 1fr; }
-    .compare::before { display: none; }
-  }
-  .compare-col {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-  }
-  .compare-col.bad { background: #f9f2ec; }
-  .compare-col.good { background: #f4f6ec; border-color: #d5dfc4; }
-  .compare-label {
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--mono); font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--ink-3);
-    padding-bottom: 16px;
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--line);
-  }
-  .compare-col.bad .compare-label .lost { color: var(--red); }
-  .compare-col.good .compare-label .won { color: var(--green); }
-  .compare-item {
-    display: flex; align-items: center; gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px dashed var(--line-2);
-  }
-  .compare-item:last-child { border-bottom: none; }
-  .ci-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: grid; place-items: center;
-    font-family: var(--headline); font-size: 15px; color: #fff;
-    flex-shrink: 0;
-  }
-  .ci-info { flex: 1; }
-  .ci-name { font-size: 14px; font-weight: 500; color: var(--ink); }
-  .ci-detail { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
-  .ci-tag {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    padding: 4px 10px; border-radius: 99px;
-  }
-  .ci-tag.bad { color: var(--red); background: #f5e5dc; }
-  .ci-tag.good { color: var(--green); background: #e0ebcf; }
-  .compare-total {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: baseline;
-  }
-  .compare-total .amt {
-    font-family: var(--headline); font-size: 36px;
-    letter-spacing: -0.02em;
-  }
-  .compare-col.bad .compare-total .amt { color: var(--red); }
-  .compare-col.good .compare-total .amt { color: var(--green); }
-  .compare-total .desc {
-    font-size: 12px; color: var(--ink-3);
-  }
-
-  /* ---------- Customisation section ---------- */
-  .custom { background: var(--bg-2); }
-  .custom-head { max-width: 60ch; margin-bottom: 64px; }
-  .custom h2 { margin: 16px 0 20px; max-width: 24ch; }
-  .custom-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 860px) { .custom-grid { grid-template-columns: 1fr; } }
-  .custom-card {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    display: flex; flex-direction: column;
-  }
-  .custom-icon {
-    width: 40px; height: 40px;
-    color: var(--accent);
-    margin-bottom: 24px;
-  }
-  .custom-card h3 { margin-bottom: 12px; }
-  .custom-card p { font-size: 14px; color: var(--ink-2); margin-bottom: 24px; flex: 1; }
-  .custom-note {
-    padding-top: 18px;
-    border-top: 1px dashed var(--line-2);
-    font-family: var(--mono); font-size: 12px;
-    color: var(--accent-ink);
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-
-  /* ---------- AI builder ---------- */
-  .builder-head { max-width: 60ch; margin-bottom: 64px; }
-  .builder h2 { margin: 16px 0 20px; max-width: 22ch; }
-  .builder-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: start;
-  }
-  @media (max-width: 900px) { .builder-wrap { grid-template-columns: 1fr; } }
-  .chat-panel {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    box-shadow: var(--shadow-md);
-  }
-  .chat-head {
-    display: flex; align-items: center; gap: 12px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 20px;
-  }
-  .chat-head .avatar { background: var(--accent); }
-  .chat-head .title { font-size: 14px; font-weight: 600; }
-  .chat-head .subtitle { font-size: 12px; color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
-  .chat-msg {
-    padding: 14px 0;
-  }
-  .chat-msg .who {
-    font-family: var(--mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--ink-3);
-    margin-bottom: 6px;
-  }
-  .chat-msg .text {
-    font-size: 14px; line-height: 1.55;
-    color: var(--ink);
-  }
-  .chat-msg .text.you {
-    background: var(--bg-2);
-    padding: 12px 14px; border-radius: 12px;
-    border-bottom-right-radius: 4px;
-  }
-  .chat-checks { list-style: none; margin-top: 8px; }
-  .chat-checks li {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 5px 0;
-    font-size: 13px;
-    color: var(--ink-2);
-  }
-  .chat-checks li svg { width: 14px; height: 14px; color: var(--green); flex-shrink: 0; margin-top: 3px; }
-  .chat-followup {
-    margin-top: 16px;
-    padding: 12px 14px;
-    background: #fef5f0;
-    border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    font-size: 13px;
-    color: var(--accent-ink);
-  }
-
-  .build-panel {
-    background: var(--ink);
-    color: var(--bg);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-    box-shadow: var(--shadow-md);
-    font-family: var(--mono);
-    font-size: 13px;
-    line-height: 1.7;
-  }
-  .build-panel h5 {
-    font-family: var(--headline); font-style: italic;
-    font-size: 22px; font-weight: 400;
-    color: var(--bg);
-    margin-bottom: 4px;
-  }
-  .build-status {
-    font-family: var(--mono); font-size: 11px;
-    color: #e8a87a;
-    margin-bottom: 22px;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .build-status .spinner {
-    width: 10px; height: 10px; border-radius: 50%;
-    border: 2px solid #e8a87a;
-    border-top-color: transparent;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .build-row {
-    padding: 12px 0;
-    border-bottom: 1px dashed #3a2e24;
-    display: flex; justify-content: space-between; gap: 20px;
-  }
-  .build-row:last-child { border-bottom: none; }
-  .build-row .k { color: #8a7a6a; text-transform: uppercase; font-size: 10px; letter-spacing: 0.1em; flex-shrink: 0; }
-  .build-row .v { color: var(--bg); text-align: right; font-size: 12px; }
-
-  /* ---------- CTA ---------- */
-  .cta-final {
-    background: var(--accent);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-    padding: 140px 0;
-  }
-  .cta-final::before {
-    content: '';
-    position: absolute;
-    bottom: -60%; left: -10%;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
-    pointer-events: none;
-  }
-  .cta-final h2 {
-    color: #fff;
-    font-size: clamp(44px, 6vw, 80px);
-    max-width: 20ch;
-    margin-bottom: 28px;
-  }
-  .cta-final h2 em { color: #ffeedd; font-style: italic; }
-  .cta-final .lead { color: rgba(255,255,255,0.88); max-width: 52ch; margin-bottom: 40px; }
-  .cta-final .inner { position: relative; z-index: 1; }
-  .cta-final .btn-primary { background: #fff; color: var(--accent); }
-  .cta-final .btn-primary:hover { background: #fff8f0; }
-  .cta-final .btn-ghost { color: #fff; border-color: rgba(255,255,255,0.4); }
-  .cta-final .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-  .cta-meta {
-    margin-top: 28px;
-    font-size: 14px; color: rgba(255,255,255,0.8);
-    display: flex; gap: 24px; flex-wrap: wrap;
-  }
-  .cta-meta span { display: inline-flex; align-items: center; gap: 8px; }
-
-  /* ---------- Footer ---------- */
-  footer {
-    background: var(--ink);
-    color: #a89a88;
-    padding: 60px 0 40px;
-    font-size: 13px;
-  }
-  footer .inner {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    gap: 40px; flex-wrap: wrap;
-  }
-  footer .logo { color: var(--bg); font-size: 24px; }
-  footer .logo-mark { background: var(--accent); color: #fff; }
-  footer .tagline {
-    margin-top: 12px; max-width: 30ch; font-size: 13px;
-    color: #8a7a6a;
-  }
-  footer .links { display: flex; gap: 28px; }
-  footer a { color: #a89a88; text-decoration: none; }
-  footer a:hover { color: var(--bg); }
-  footer .bottom {
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid #3a2e24;
-    display: flex; justify-content: space-between; gap: 20px;
-    font-family: var(--mono); font-size: 11px;
-    color: #6a5e50;
-  }
-
-  /* ---------- Tweaks panel ---------- */
-  #tweaks-panel {
-    position: fixed;
-    bottom: 20px; right: 20px;
-    z-index: 200;
-    background: var(--bg-card);
-    border: 1px solid var(--line-2);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow-lg);
-    width: 280px;
-    display: none;
-    font-family: var(--sans);
-  }
-  #tweaks-panel.active { display: block; }
-  #tweaks-panel h5 {
-    font-family: var(--headline); font-size: 20px;
-    margin-bottom: 4px;
-    font-style: italic;
-  }
-  #tweaks-panel .tp-sub {
-    font-size: 11px; color: var(--ink-3);
-    margin-bottom: 18px;
-    font-family: var(--mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .tp-row {
-    margin-bottom: 14px;
-  }
-  .tp-row label {
-    display: block;
-    font-size: 12px; font-weight: 500;
-    margin-bottom: 6px;
-    color: var(--ink-2);
-  }
-  .swatches { display: flex; gap: 6px; }
-  .swatch {
-    width: 28px; height: 28px; border-radius: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.15s;
-  }
-  .swatch:hover { transform: scale(1.1); }
-  .swatch.active { border-color: var(--ink); }
-  .tp-row select, .tp-row .seg {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--bg);
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--ink);
-  }
-  .seg { display: flex; gap: 4px; padding: 4px; }
-  .seg button {
-    flex: 1;
-    padding: 6px 10px;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    font-family: var(--sans); font-size: 12px;
-    cursor: pointer;
-    color: var(--ink-2);
-  }
-  .seg button.active {
-    background: var(--ink);
-    color: var(--bg);
-  }
-
-  /* ---------- Observed reveal ---------- */
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- ============ NAV ============ -->
-<nav class="top">
-  <div class="inner">
-    <a href="#" class="logo">
-      <span class="logo-mark">R</span>
-      Rally
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="#14130f" stroke-width="1.4"/>
+          <path d="M12 2 v20 M2 12 h20 M5 5 l14 14 M19 5 l-14 14" stroke="#14130f" stroke-width="0.7" fill="none" opacity="0.35"/>
+          <circle cx="12" cy="12" r="3.2" fill="#ec4a1c"/>
+        </svg>
+      </span>
+      <span>Rally</span>
     </a>
     <ul>
-      <li><a href="#problem">Problem</a></li>
-      <li><a href="#solution">Solution</a></li>
-      <li><a href="#dashboard">Dashboard</a></li>
-      <li><a href="#integrations">How it fits</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#qualification">Qualification</a></li>
+      <li><a href="#examples">Examples</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a href="#cta" class="btn btn-accent btn-sm">I'm interested <span class="arrow">→</span></a>
+    <div class="spacer"></div>
+    <a class="sign-in" href="#">Sign in</a>
+    <a class="btn btn-accent" href="#cta">Join the waitlist <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
   </div>
-</nav>
+</header>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="wrap inner">
-    <div class="hero-copy">
-      <h1>Your engagement assistant to <em class="hl">convert</em> new, and <em class="hl">retain</em> existing customers</h1>
-      <p class="lead">Losing a customer or prospect is painful — and most of the time, it was preventable, or at least could have been mitigated through the right strategies and engagements. Rally assists and automates your entire member engagement lifecycle, turning trial and interested prospects into loyal customers and keeping existing ones coming back.</p>
-      <div class="hero-ctas">
-        <a href="#cta" class="btn btn-primary">I'm interested <span class="arrow">→</span></a>
-        <a href="#solution" class="btn btn-ghost">See how it works</a>
+  <div class="wrap hero-grid">
+    <div class="hero-left">
+      <div class="eyebrow"><span class="dot"></span>Sourcing &amp; qualification agent · v0.4 preview</div>
+      <h1 class="h-display serif">
+        We help you<br/>
+        automate your<br/>
+        lead <em>research</em><br/>
+        &amp; <em>qualification.</em>
+      </h1>
+      <p class="lede" style="margin-top:28px">
+        Stop having to do your lead research manually. Rally sources real businesses from the live web, qualifies each one against your exact criteria, and returns a structured outreach list — not a credit-burning database dump.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-accent btn-lg" href="#cta">Join the waitlist <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>Real-time</strong> &nbsp;web research</div>
+        <div><strong>Qualification-first</strong> &nbsp;not just discovery</div>
+        <div><strong>Pay per search</strong> &nbsp;no enterprise lock-in</div>
       </div>
     </div>
-    <div class="hero-preview" aria-hidden="true">
-      <div class="hp-eyebrow">Rally is watching — <em>so you don't have to</em></div>
-      <div class="insights-card">
-        <div class="insights-head">
-          <span class="live-dot"></span>
-          Live member insights
+
+    <!-- Live demo mounts here -->
+    <div id="hero-demo"></div>
+  </div>
+</section>
+
+<!-- ============ LOGOS / TRUSTED BY ============ -->
+<section class="logos">
+  <div class="wrap logos-inner">
+    <div class="logos-label">Built for operators at</div>
+    <div class="logos-list">
+      <span>Northbound&nbsp;Agency</span>
+      <span>Halftide</span>
+      <span>Folio&nbsp;Recruiting</span>
+      <span>Meridian&nbsp;SDR</span>
+      <span>Outpost&nbsp;Labs</span>
+      <span>Cohort&nbsp;Co.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON ============ -->
+<section class="s" id="compare">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">01 — Positioning</div>
+        <h2 class="h-section serif">A different<br/>category of tool.</h2>
+      </div>
+      <p class="lede">Apollo and ZoomInfo answer <em>"which companies exist?"</em> Clay enriches lists you already have. LLMs do one-off searches. Rally answers the harder, earlier question — <em>"which businesses actually match my criteria?"</em> — and runs until the job is done.</p>
+    </div>
+
+    <div class="cmp">
+      <div class="cmp-row head">
+        <div class="cell">Capability</div>
+        <div class="cell">Apollo / ZoomInfo</div>
+        <div class="cell">Clay</div>
+        <div class="cell">General LLMs</div>
+        <div class="cell">AI Agents</div>
+        <div class="cell rally">Rally</div>
+      </div>
+
+      <div class="cmp-row">
+        <div class="cell lab">Real-time web sourcing</div>
+        <div class="cell"><span class="mark-mid">◐ Limited</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell"><span class="mark-yes">● Yes</span></div>
+        <div class="cell"><span class="mark-yes">● Yes</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Finds businesses outside static databases</div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell"><span class="mark-yes">● Yes</span></div>
+        <div class="cell"><span class="mark-yes">● Yes</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Deep qualification against custom criteria</div>
+        <div class="cell"><span class="mark-no">○ Weak</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell"><span class="mark-no">○ Weak</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell rally"><span class="mark-yes">● Strong</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Autonomous sourcing workflows</div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Persistent sourcing state &amp; coverage</div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ Limited</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Goal-based runs (e.g. 500 leads)</div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-mid">◐ Partial</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Transparent sourcing trail</div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ Limited</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cell lab">Flexible pay-per-search pricing</div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell"><span class="mark-no">○ No</span></div>
+        <div class="cell rally"><span class="mark-yes">● Yes</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE AGENT ============ -->
+<section class="s" id="agent">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">02 — Transparency</div>
+        <h2 class="h-section serif">Watch the agent<br/>show its work.</h2>
+      </div>
+      <p class="lede">Every Rally run produces a structured sourcing trail — the searches it ran, the pages it inspected, what qualified, what didn't, and why. Sourcing memory persists between runs so coverage compounds instead of resetting.</p>
+    </div>
+
+    <div class="trail-wrap">
+      <div id="agent-trail"></div>
+      <div id="agent-coverage"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="s" id="how">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">03 — Workflow</div>
+        <h2 class="h-section serif">Six steps.<br/>One natural-language brief.</h2>
+      </div>
+      <p class="lede">Rally is structured the way a good sourcing analyst works — clarify the brief, plan the search, execute, qualify, extract, and track coverage until the goal is met.</p>
+    </div>
+
+    <div class="how">
+      <div class="step">
+        <div class="n">STEP 01</div>
+        <div>
+          <h3>Clarify requirements</h3>
+          <p>Rally reads your brief and asks targeted follow-ups: geographic scope, qualification thresholds, exclusion filters, contact requirements, output format, target quantity.</p>
+          <div class="sub"><span>geo scope</span><span>filters</span><span>contact reqs</span><span>output</span></div>
         </div>
-        <div class="insights-body" id="insights-body">
-          <!-- rows injected by JS -->
+      </div>
+      <div class="step">
+        <div class="n">STEP 02</div>
+        <div>
+          <h3>Build a search plan</h3>
+          <p>Before browsing, the agent assembles a structured strategy: which directories, map sources, niche listings, social platforms, and fallback paths to follow — and what qualification signals to watch for.</p>
+          <div class="sub"><span>directories</span><span>maps</span><span>niche listings</span><span>signals</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">STEP 03</div>
+        <div>
+          <h3>Discover across the web</h3>
+          <p>Rally searches Google, Maps, business directories, social platforms, booking platforms, and public databases — and dynamically expands into adjacent paths as new sources surface.</p>
+          <div class="sub"><span>search</span><span>maps</span><span>social</span><span>public DBs</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">STEP 04</div>
+        <div>
+          <h3>Qualify against criteria</h3>
+          <p>Each candidate gets inspected: page features, technology signals, social activity, review thresholds, software fingerprints. Rally's filtering is reasoning-based, not keyword-based.</p>
+          <div class="sub"><span>page inspection</span><span>tech signals</span><span>review counts</span><span>filtering</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">STEP 05</div>
+        <div>
+          <h3>Extract and verify contacts</h3>
+          <p>Public emails, contact forms, phone numbers, Instagram, LinkedIn, WhatsApp — extracted, deduplicated, and verified where possible. Structured output you can pipe straight into outreach.</p>
+          <div class="sub"><span>email</span><span>forms</span><span>IG / LI</span><span>WhatsApp</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">STEP 06</div>
+        <div>
+          <h3>Track coverage to goal</h3>
+          <p>Goal-based execution. Rally keeps running — retrying failed sources, expanding breadth, exploring alternative paths — until the target count is reached or the search space is exhausted.</p>
+          <div class="sub"><span>retries</span><span>memory</span><span>coverage</span><span>completion</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ VERTICALS MARQUEE ============ -->
-<section class="verticals" style="padding: 40px 0;">
-  <div class="verticals-label">Built for membership & class-based businesses</div>
-  <div class="marquee" id="marquee"></div>
-</section>
-
-<!-- ============ PROBLEM ============ -->
-<section id="problem" class="problem">
+<!-- ============ QUALIFICATION-FIRST ============ -->
+<section class="s" id="qualification">
   <div class="wrap">
-    <div class="problem-head reveal">
-      <span class="eyebrow">The problem</span>
-      <h2>The clients you're losing <em>without knowing it.</em></h2>
-      <p class="lead">Engagement is the biggest driver of retention. It's also the first thing studio owners drop — not for lack of care, but because tracking every touchpoint across every client is a grind that never ends.</p>
-    </div>
-    <div class="problem-grid">
-      <div class="problem-card reveal">
-        <svg class="problem-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="6" y="4" width="20" height="24" rx="2"/>
-          <line x1="10" y1="10" x2="22" y2="10"/>
-          <line x1="10" y1="16" x2="22" y2="16"/>
-          <line x1="10" y1="22" x2="18" y2="22"/>
-        </svg>
-        <h3>Leads that go cold</h3>
-        <p>Someone shows interest, tries your class, has a great experience — then never hears from you again. That lead quietly disappears.</p>
-        <div class="problem-stat">
-          <div class="num">~70%</div>
-          <div class="desc">of trial leads don't convert without a timely follow-up</div>
-        </div>
+    <div class="s-head">
+      <div>
+        <div class="s-num">04 — Differentiator</div>
+        <h2 class="h-section serif">Discovery is easy.<br/><em>Qualification</em> is the work.</h2>
       </div>
-      <div class="problem-card reveal">
-        <svg class="problem-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 24 L12 16 L18 22 L28 10"/>
-          <polyline points="22 10 28 10 28 16"/>
-        </svg>
-        <h3>Members that drift</h3>
-        <p>Attendance trails off gradually. By the time you notice, they've already mentally moved on. There's no alarm that goes off.</p>
-        <div class="problem-stat">
-          <div class="num">8–12%</div>
-          <div class="desc">average monthly churn at boutique studios</div>
-        </div>
-      </div>
-      <div class="problem-card reveal">
-        <svg class="problem-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="16" cy="16" r="11"/>
-          <polyline points="16 9 16 16 21 19"/>
-        </svg>
-        <h3>Touchpoints that slip</h3>
-        <p>Every client needs different nudges at different times. Keeping track of who needs what, and when, is impossible to do manually.</p>
-        <div class="problem-stat">
-          <div class="num">5+ hrs</div>
-          <div class="desc">lost every week to manual outreach</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ATTENTION ============ -->
-<section id="attention" class="attention">
-  <div class="wrap">
-    <div class="attention-head reveal">
-      <span class="eyebrow">With Rally</span>
-      <h2>Members that feel <em>actually seen.</em></h2>
-      <p class="lead">The kind of attention that turns a trial into a member, and a member into a regular — automated, but never robotic.</p>
-    </div>
-    <div class="channels">
-      <!-- WhatsApp -->
-      <div class="channel-card reveal">
-        <div class="channel-header">
-          <div class="left">
-            <div class="channel-icon-wrap wa">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.4-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.3 5.3 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.5 0-3-.4-4.3-1.1l-.3-.2-3.1.8.8-3-.2-.3c-.8-1.3-1.2-2.8-1.2-4.4C3.7 7.5 7.5 3.7 12 3.7s8.3 3.8 8.3 8.3-3.8 8.3-8.3 8.3z"/></svg>
-            </div>
-            <div>
-              <div class="channel-type">WhatsApp</div>
-              <div class="channel-sender">From: Rally</div>
-            </div>
-          </div>
-          <span class="channel-label">Post-trial follow-up</span>
-        </div>
-        <div class="msg-body">
-          Hey Wei Ling! 👋 Hope you loved tonight's class — Coach said you picked it up really fast.
-          <br><br>
-          Thinking of making it a regular thing? We'd love to have you. <strong>20% off your first month</strong> if you sign up by Friday.
-        </div>
-        <div class="msg-receipt">
-          <span><svg class="tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Delivered</span>
-          <span><svg class="tick" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Read 19:44</span>
-        </div>
-      </div>
-
-      <!-- Email -->
-      <div class="channel-card reveal">
-        <div class="channel-header">
-          <div class="left">
-            <div class="channel-icon-wrap em">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
-            </div>
-            <div>
-              <div class="channel-type">Email</div>
-              <div class="channel-sender">To: marcus.k@gmail.com</div>
-            </div>
-          </div>
-          <span class="channel-label">Birthday campaign</span>
-        </div>
-        <div class="msg-subject">🎂 Happy birthday month, Marcus!</div>
-        <div class="msg-body">
-          It's your birthday month and we want to celebrate with you.
-          <br><br>
-          Enjoy <strong>30% off your next month</strong> — no code needed, it's already applied. See you on the mat soon.
-        </div>
-        <a href="#" class="msg-cta">Claim your discount →</a>
-      </div>
-
-      <!-- SMS -->
-      <div class="channel-card reveal">
-        <div class="channel-header">
-          <div class="left">
-            <div class="channel-icon-wrap sm">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-            </div>
-            <div>
-              <div class="channel-type">SMS</div>
-              <div class="channel-sender">To: Priya S.</div>
-            </div>
-          </div>
-          <span class="channel-label">Renewal reminder · T-5</span>
-        </div>
-        <div class="msg-body">
-          Hi Priya, your membership expires in 5 days. Renew now and lock in your current rate before it changes.
-          <br><br>
-          <span style="color:var(--accent);">→ studio.link/renew</span>
-        </div>
-      </div>
-
-      <!-- Push -->
-      <div class="channel-card reveal">
-        <div class="channel-header">
-          <div class="left">
-            <div class="channel-icon-wrap pn">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-            </div>
-            <div>
-              <div class="channel-type">Push notification</div>
-              <div class="channel-sender">Inactive · 14 days</div>
-            </div>
-          </div>
-          <span class="channel-label">Re-engagement</span>
-        </div>
-        <div class="msg-subject">We miss you, Darren 👋</div>
-        <div class="msg-body">
-          It's been a while. Your spot is still here — come back this week and your first class is on us.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PILLARS ============ -->
-<section id="solution" class="pillars">
-  <div class="wrap">
-    <div class="pillars-head reveal">
-      <span class="eyebrow">The solution</span>
-      <h2>Two pillars.<br><em>One platform.</em></h2>
-      <p class="lead">Rally runs your entire engagement lifecycle — from first trial to long-term loyalty.</p>
+      <p class="lede">Most tools stop once they've found <em>something that contains a keyword</em>. Rally keeps going — actually checking whether the business meets your criteria, the way a researcher would, page by page.</p>
     </div>
 
-    <!-- Pillar 1 -->
-    <div class="pillar">
-      <div class="pillar-copy reveal">
-        <span class="pillar-tag">01 · Trial Conversion</span>
-        <h3>Turn trial leads into paying regulars.</h3>
-        <p class="lead">Automated sequences with personalised messaging, smart offers, and perfect timing — so no interested prospect slips through the cracks.</p>
+    <div class="qual-grid">
+      <div class="q-card bad">
+        <div class="label">⊘ Static databases &amp; keyword tools</div>
+        <h4>Returns 1,200 "cafés in London" — most are noise.</h4>
         <ul>
-          <li>Instant trial confirmation & pre-class reminders</li>
-          <li>Personalised post-class follow-up at the right moment</li>
-          <li>Smart objection handling & discount offers</li>
-          <li>Urgency nudges before the trial window closes</li>
-          <li>Cold nurture for unconverted trials</li>
-          <li>Referral prompts for satisfied trial members</li>
+          <li><span class="ic">×</span><span>Stale records, closed locations, wrong addresses</span></li>
+          <li><span class="ic">×</span><span>No way to ask "uses Square POS" or "no loyalty program"</span></li>
+          <li><span class="ic">×</span><span>Smaller and newer businesses simply aren't indexed</span></li>
+          <li><span class="ic">×</span><span>You spend the next 3 hours filtering manually in a spreadsheet</span></li>
+          <li><span class="ic">×</span><span>Credits burn whether the lead qualified or not</span></li>
         </ul>
       </div>
-      <div class="timeline reveal">
-        <div class="timeline-label">
-          <span>Trial · Aisha S.</span>
-          <span class="status"><span class="dot-live"></span> live</span>
-        </div>
-        <div class="timeline-steps">
-          <div class="timeline-step">
-            <div class="step-dot done">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">Trial booked</div>
-              <div class="step-detail">Confirmation & welcome sent via WhatsApp</div>
-              <div class="step-time">Mon 3:12 PM</div>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="step-dot done">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">Day before class</div>
-              <div class="step-detail">Pre-class reminder sent</div>
-              <div class="step-time">Wed 6:00 PM</div>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="step-dot active"></div>
-            <div class="step-body">
-              <div class="step-title">After class</div>
-              <div class="step-detail">Personalised follow-up scheduled · 2h post-class</div>
-              <div class="step-time">Thu 9:00 PM</div>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="step-dot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title">No response · 48h</div>
-              <div class="step-detail">Limited-time deal · triggered automatically</div>
-              <div class="step-time muted">scheduled</div>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="step-dot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
-            </div>
-            <div class="step-body">
-              <div class="step-title muted">Converted</div>
-              <div class="step-detail muted">Referral prompt queued</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pillar 2 -->
-    <div class="pillar reverse">
-      <div class="retention-viz reveal">
-        <div class="timeline-label">
-          <span>Retention monitor · last 30 days</span>
-          <span class="status"><span class="dot-live"></span> watching 62 members</span>
-        </div>
-        <div class="retention-chart">
-          <svg viewBox="0 0 400 160" preserveAspectRatio="none" style="width:100%; height:100%;">
-            <!-- Grid -->
-            <g stroke="#e6ddc9" stroke-width="1">
-              <line x1="0" y1="40" x2="400" y2="40" stroke-dasharray="3 3"/>
-              <line x1="0" y1="80" x2="400" y2="80" stroke-dasharray="3 3"/>
-              <line x1="0" y1="120" x2="400" y2="120" stroke-dasharray="3 3"/>
-            </g>
-            <!-- Engagement line -->
-            <path d="M0,60 Q40,55 60,55 T120,60 T180,75 T240,90 T300,70 T360,55 T400,48"
-                  stroke="#c45a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <!-- Risk zone -->
-            <path d="M0,60 Q40,55 60,55 T120,60 T180,75 T240,90 T300,70 T360,55 T400,48 L400,160 L0,160 Z"
-                  fill="#c45a3a" opacity="0.06"/>
-            <!-- Danger marker -->
-            <circle cx="240" cy="90" r="5" fill="#c45a3a"/>
-            <circle cx="240" cy="90" r="10" fill="#c45a3a" opacity="0.3">
-              <animate attributeName="r" values="8;16;8" dur="2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
-            </circle>
-            <!-- Recovery marker -->
-            <circle cx="300" cy="70" r="5" fill="#5a7a4a"/>
-          </svg>
-        </div>
-        <div class="alert-row alert">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
-          <span><strong>Marcus K.</strong> at risk · no check-in · 10 days → <strong>re-engagement sent</strong></span>
-        </div>
-        <div class="alert-row success">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 12 10 18 20 8"/></svg>
-          <span><strong>Marcus K.</strong> replied & booked Saturday class</span>
-        </div>
-      </div>
-      <div class="pillar-copy reveal">
-        <span class="pillar-tag">02 · Retention</span>
-        <h3>Spot at-risk members — before they leave.</h3>
-        <p class="lead">Behaviour-triggered engagement that detects churn signals early and brings them back before they mentally check out.</p>
+      <div class="q-card good">
+        <div class="label">● Rally — qualification-first sourcing</div>
+        <h4>Returns 137 cafés that actually use Square and don't run a loyalty program.</h4>
         <ul>
-          <li>Absence detection at configurable intervals</li>
-          <li>Automated re-engagement with personalised offers</li>
-          <li>Membership renewal reminders & incentives</li>
-          <li>Failed payment recovery flows</li>
-          <li>Milestone celebrations & birthday messages</li>
-          <li>Seasonal reactivation campaigns</li>
+          <li><span class="ic">✓</span><span>Inspects each website for the requested signal</span></li>
+          <li><span class="ic">✓</span><span>Reasons about nuanced criteria — booking systems, review thresholds, hiring activity, language</span></li>
+          <li><span class="ic">✓</span><span>Discovers fragmented businesses outside static databases</span></li>
+          <li><span class="ic">✓</span><span>Filters, dedupes, and produces a clean outreach list</span></li>
+          <li><span class="ic">✓</span><span>Every lead arrives with a sourcing trail you can audit</span></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ DASHBOARD ============ -->
-<section id="dashboard" class="dashboard-sec">
+<!-- ============ EXAMPLES ============ -->
+<section class="s" id="examples">
   <div class="wrap">
-    <div class="dashboard-head reveal">
-      <span class="eyebrow">Live dashboard</span>
-      <h2>Track everything — <em>simply.</em></h2>
-      <p class="lead">One view of every conversation, campaign, and conversion. No more alt-tabbing through five tools.</p>
-    </div>
-    <div class="dashboard reveal">
-      <div class="db-chrome">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <div class="title">rally · studio.dashboard</div>
+    <div class="s-head">
+      <div>
+        <div class="s-num">05 — Briefs</div>
+        <h2 class="h-section serif">A taste of what people<br/>actually ask Rally.</h2>
       </div>
-      <div class="db-body">
-        <div class="db-sidebar">
-          <h4>This month</h4>
-          <div class="db-date">April 2026 · Week 3</div>
-          <div class="kpi-grid">
-            <div class="kpi">
-              <div class="k-label">Trial conversion</div>
-              <div class="k-value"><span id="kpi-1">38</span>%</div>
-              <div class="k-change">↑ +17% vs last month</div>
-            </div>
-            <div class="kpi">
-              <div class="k-label">Retention rate</div>
-              <div class="k-value"><span id="kpi-2">94</span>%</div>
-              <div class="k-change">↑ up from 79%</div>
-            </div>
-            <div class="kpi">
-              <div class="k-label">Revenue recovered</div>
-              <div class="k-value">$<span id="kpi-3">1.4</span>k</div>
-              <div class="k-change neutral">from 6 re-engagements</div>
-            </div>
-            <div class="kpi">
-              <div class="k-label">Messages sent</div>
-              <div class="k-value"><span id="kpi-4">142</span></div>
-              <div class="k-change">↑ +23 vs last week</div>
-            </div>
-          </div>
+      <p class="lede">Plain English in. Structured, qualified outreach lists out. The kind of brief that would take a sourcing intern two days runs in the background while you do something else.</p>
+    </div>
+
+    <div class="examples">
+      <div class="example">
+        <div class="tag">Local · Hospitality</div>
+        <div class="q">"Find 1,000 cafés in Manhattan with public contact emails and active Instagram pages."</div>
+        <div class="meta"><span><b>1,000</b> target</span><span><b>4 sources</b></span><span><b>2 criteria</b></span><span class="arrow">→</span></div>
+      </div>
+      <div class="example">
+        <div class="tag">Tech-signal sourcing</div>
+        <div class="q">"Find fitness studios in Singapore using Vibefam or Mindbody booking systems."</div>
+        <div class="meta"><span><b>Open</b> target</span><span><b>6 sources</b></span><span><b>2 tech signals</b></span><span class="arrow">→</span></div>
+      </div>
+      <div class="example">
+        <div class="tag">E-commerce</div>
+        <div class="q">"Compile florists in Amsterdam with online ordering websites and contact forms."</div>
+        <div class="meta"><span><b>Open</b> target</span><span><b>3 sources</b></span><span><b>2 features</b></span><span class="arrow">→</span></div>
+      </div>
+      <div class="example">
+        <div class="tag">Inverse criteria</div>
+        <div class="q">"Find restaurants in London with reservation systems but no loyalty program."</div>
+        <div class="meta"><span><b>500</b> target</span><span><b>5 sources</b></span><span><b>1 + / 1 −</b></span><span class="arrow">→</span></div>
+      </div>
+      <div class="example">
+        <div class="tag">Boutique &amp; niche</div>
+        <div class="q">"Boutique hotels in Bali with direct booking websites and WhatsApp contact numbers."</div>
+        <div class="meta"><span><b>200</b> target</span><span><b>4 sources</b></span><span><b>2 criteria</b></span><span class="arrow">→</span></div>
+      </div>
+      <div class="example">
+        <div class="tag">Recency filter</div>
+        <div class="q">"Coworking spaces in Dubai opened within the last two years."</div>
+        <div class="meta"><span><b>Open</b> target</span><span><b>5 sources</b></span><span><b>1 temporal</b></span><span class="arrow">→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section class="s" id="users">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">06 — Who uses Rally</div>
+        <h2 class="h-section serif">Built for operators<br/>who actually do the sourcing.</h2>
+      </div>
+      <p class="lede">Solo founders running their own outbound. Agencies running campaigns for ten clients at once. Recruiters in fragmented industries. Anyone who's ever stared at a Google Maps tab at 11pm trying to find one more lead.</p>
+    </div>
+
+    <div class="uc-grid">
+      <div class="uc">
+        <div class="nm">Agencies</div>
+        <div class="desc">Run targeted campaigns for clients without buying a per-seat database. Spin up sourcing runs per project, hand off the trail.</div>
+        <div class="quote">"We replaced our sourcing intern <em>and</em> our Apollo seat. Same week."</div>
+        <div class="who">— Founder, growth agency · 8 ppl</div>
+      </div>
+      <div class="uc">
+        <div class="nm">Recruiters</div>
+        <div class="desc">Niche industries with fragmented web presence — exactly the gap traditional databases miss. Rally finds the long tail.</div>
+        <div class="quote">"Finally a tool that finds the studios — not just the franchises."</div>
+        <div class="who">— Talent partner, hospitality</div>
+      </div>
+      <div class="uc">
+        <div class="nm">Outbound teams</div>
+        <div class="desc">Custom qualification logic per ICP. Stop manually filtering noisy exports — get clean, qualified lists from the start.</div>
+        <div class="quote">"Reply rates went up the week we stopped sourcing from Apollo."</div>
+        <div class="who">— Head of outbound, SaaS · Series A</div>
+      </div>
+      <div class="uc">
+        <div class="nm">Solo founders</div>
+        <div class="desc">Pay-per-search means you don't sign a $1k/mo contract for one campaign. Run a brief, get the leads, move on.</div>
+        <div class="quote">"My first 200 customers came out of two Rally runs."</div>
+        <div class="who">— Founder, vertical SaaS</div>
+      </div>
+      <div class="uc">
+        <div class="nm">Local vendors</div>
+        <div class="desc">Selling to cafés, salons, gyms? Rally surfaces the businesses, qualifies for the tech you replace, hands you the contacts.</div>
+        <div class="quote">"It's like Yelp + due diligence in one pass."</div>
+        <div class="who">— GTM lead, POS startup</div>
+      </div>
+      <div class="uc">
+        <div class="nm">Partnerships</div>
+        <div class="desc">Find candidate partners that already use the right stack and operate at the right scale — without 40 LinkedIn tabs.</div>
+        <div class="quote">"Our partner pipeline tripled in a quarter."</div>
+        <div class="who">— Partnerships, dev tools</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="s" id="pricing">
+  <div class="wrap">
+    <div class="s-head">
+      <div>
+        <div class="s-num">07 — Pricing</div>
+        <h2 class="h-section serif">Cheap enough<br/>to <em>actually use.</em></h2>
+      </div>
+      <p class="lede">Pick a subscription if you source every week. Pay per search if you don't. Either way, Rally is designed to come in at a fraction of the traditional Apollo + Clay + intern stack — no per-seat lock-in, no minimum commitment.</p>
+    </div>
+
+    <!-- Cost comparison band -->
+    <div class="cost-band">
+      <div class="cost-band-row">
+        <div class="cell">
+          <span class="nm">Apollo Pro</span>
+          <span class="price strike">$99<small>/ user / mo</small></span>
         </div>
-        <div class="db-main">
-          <div class="summary-box">
-            <div class="badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
-              Rally weekly summary
-            </div>
-            <div class="summary-text">
-              Strong week — <em>8 trial conversions</em> driven by post-class follow-ups. Marcus K. and 4 others re-engaged after absence nudges. Birthday campaign sent to 5 members with <em>80% redemption</em>. 2 renewal reminders converted before lapse.
-            </div>
-          </div>
+        <div class="cell">
+          <span class="nm">ZoomInfo</span>
+          <span class="price strike">~$15k<small>/ year</small></span>
+        </div>
+        <div class="cell">
+          <span class="nm">Clay Pro</span>
+          <span class="price strike">$349<small>/ mo</small></span>
+        </div>
+        <div class="cell">
+          <span class="nm">Sourcing intern</span>
+          <span class="price strike">$2k+<small>/ mo</small></span>
+        </div>
+        <div class="cell rally">
+          <span class="nm">Rally</span>
+          <span class="price">from $0<small>· or $0.10 / lead</small></span>
+        </div>
+      </div>
+      <div class="cost-band-foot">
+        Comparable list prices · public web · 2025. Rally pricing illustrative ahead of launch.
+      </div>
+    </div>
 
-          <div class="db-card">
-            <div class="db-card-header">
-              <h5>Trial pipeline · active</h5>
-              <span class="pill">3 in-flight</span>
-            </div>
-            <div class="pipeline-item">
-              <div class="pi-avatar a1">AS</div>
-              <div class="pi-info">
-                <div class="pi-name">Aisha S.</div>
-                <div class="pi-detail">Trial class tomorrow · 7pm</div>
-              </div>
-              <span class="pi-status reminder">Reminder sent</span>
-            </div>
-            <div class="pipeline-item">
-              <div class="pi-avatar a2">WL</div>
-              <div class="pi-info">
-                <div class="pi-name">Wei Ling</div>
-                <div class="pi-detail">Completed trial · 3h ago</div>
-              </div>
-              <span class="pi-status followup">Follow-up sent</span>
-            </div>
-            <div class="pipeline-item">
-              <div class="pi-avatar a3">DT</div>
-              <div class="pi-info">
-                <div class="pi-name">Darren T.</div>
-                <div class="pi-detail">No response · 3 days · deal offered</div>
-              </div>
-              <span class="pi-status deal">48h window</span>
-            </div>
-          </div>
+    <!-- Subscription tiers -->
+    <div class="pricing">
+      <div class="plan">
+        <div class="nm">Starter</div>
+        <div class="price">$0<small>/ mo</small></div>
+        <div class="desc">For trying Rally on a real brief. Three searches per month, no card required.</div>
+        <ul>
+          <li><span class="c">›</span><span>3 sourcing runs / mo</span></li>
+          <li><span class="c">›</span><span>Up to 50 qualified leads / run</span></li>
+          <li><span class="c">›</span><span>Sourcing trail &amp; CSV export</span></li>
+          <li><span class="c">›</span><span>Community support</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#cta">Start free</a>
+      </div>
 
-          <div class="db-card">
-            <div class="db-card-header">
-              <h5>Member engagement</h5>
-              <span class="pill">today</span>
-            </div>
-            <div class="pipeline-item">
-              <div class="pi-avatar a4">PS</div>
-              <div class="pi-info">
-                <div class="pi-name">Priya S.</div>
-                <div class="pi-detail">Trial 3 weeks ago · never joined</div>
-              </div>
-              <span class="pi-status winback">Win-back email</span>
-            </div>
-            <div class="pipeline-item">
-              <div class="pi-avatar a2">MK</div>
-              <div class="pi-info">
-                <div class="pi-name">Marcus K.</div>
-                <div class="pi-detail">No check-in · 10 days</div>
-              </div>
-              <span class="pi-status followup">Re-engaged</span>
-            </div>
-            <div class="pipeline-item">
-              <div class="pi-avatar a1">FH</div>
-              <div class="pi-info">
-                <div class="pi-name">Farid H.</div>
-                <div class="pi-detail">Membership renews in 5 days</div>
-              </div>
-              <span class="pi-status reminder">Renewal nudge</span>
-            </div>
-          </div>
+      <div class="plan feature">
+        <div class="nm">Operator <span style="color:var(--accent)">— most popular</span></div>
+        <div class="price"><b>$49</b><small>/ mo · includes 500 leads</small></div>
+        <div class="desc">For solo founders, agencies, and outbound teams running real campaigns. Top up with credits as needed.</div>
+        <ul>
+          <li><span class="c">›</span><span>500 qualified leads / mo included</span></li>
+          <li><span class="c">›</span><span>Then $0.08 per qualified lead</span></li>
+          <li><span class="c">›</span><span>Unlimited runs · up to 1,000 leads / run</span></li>
+          <li><span class="c">›</span><span>Persistent sourcing memory</span></li>
+          <li><span class="c">›</span><span>Custom qualification criteria</span></li>
+          <li><span class="c">›</span><span>API access &amp; webhooks</span></li>
+        </ul>
+        <a class="btn btn-accent" href="#cta">Join the waitlist</a>
+      </div>
+
+      <div class="plan">
+        <div class="nm">Scale</div>
+        <div class="price">Custom</div>
+        <div class="desc">For agencies and teams running sourcing at volume across many clients or markets.</div>
+        <ul>
+          <li><span class="c">›</span><span>Volume credit pricing from $0.04 / lead</span></li>
+          <li><span class="c">›</span><span>Multi-workspace &amp; SSO</span></li>
+          <li><span class="c">›</span><span>Priority research lanes</span></li>
+          <li><span class="c">›</span><span>Dedicated support</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#cta">Talk to us</a>
+      </div>
+    </div>
+
+    <!-- Pay-per-search callout -->
+    <div class="payg">
+      <div class="lhs">
+        <div class="nm">No subscription · pay per search</div>
+        <h4>Just running one campaign? Buy credits, source, ship.</h4>
+        <p>No monthly minimum. Credits never expire. The same agent, the same qualification, the same sourcing trail — you just pay for the leads you actually get back.</p>
+        <a class="btn btn-ghost" href="#cta">Buy credits at launch →</a>
+      </div>
+      <div class="packs">
+        <div class="pack">
+          <span class="lbl">Starter pack</span>
+          <span class="qty">100<small>leads</small></span>
+          <span class="price-tag">$15</span>
+          <span class="each">$0.15 / qualified lead</span>
+        </div>
+        <div class="pack">
+          <span class="lbl">Campaign pack</span>
+          <span class="qty">1,000<small>leads</small></span>
+          <span class="price-tag">$100</span>
+          <span class="each">$0.10 / qualified lead</span>
+        </div>
+        <div class="pack">
+          <span class="lbl">Volume pack</span>
+          <span class="qty">10,000<small>leads</small></span>
+          <span class="price-tag">$600</span>
+          <span class="each">$0.06 / qualified lead</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ WINS ============ -->
-<section class="wins">
+<!-- ============ FAQ ============ -->
+<section class="s" id="faq">
   <div class="wrap">
-    <div class="wins-head reveal">
-      <span class="eyebrow">Small actions, big wins</span>
-      <h2>A nudge at the right moment tips the decision.</h2>
-      <p class="lead">One follow-up. One reminder. One well-timed message. Each one feels small, but for a customer on the fence, it makes all the difference.</p>
-    </div>
-    <div class="compare">
-      <div class="compare-col bad reveal">
-        <div class="compare-label">
-          <span>Without Rally</span>
-          <span class="lost">— churn rising</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#7a9c5a">WL</div>
-          <div class="ci-info">
-            <div class="ci-name">Wei Ling</div>
-            <div class="ci-detail">Completed trial · 3 days ago</div>
-          </div>
-          <span class="ci-tag bad">No follow-up</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#b8834a">MK</div>
-          <div class="ci-info">
-            <div class="ci-name">Marcus K.</div>
-            <div class="ci-detail">No check-in · 14 days</div>
-          </div>
-          <span class="ci-tag bad">Unnoticed</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#8a6a9c">PS</div>
-          <div class="ci-info">
-            <div class="ci-name">Priya S.</div>
-            <div class="ci-detail">Membership expired yesterday</div>
-          </div>
-          <span class="ci-tag bad">Churned</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#5a7a9c">DT</div>
-          <div class="ci-info">
-            <div class="ci-name">Darren T.</div>
-            <div class="ci-detail">Trial 2 weeks ago · never joined</div>
-          </div>
-          <span class="ci-tag bad">Gone cold</span>
-        </div>
-        <div class="compare-total">
-          <div>
-            <div class="amt">$3,200</div>
-            <div style="font-size:12px; color:var(--red); margin-top:2px;">lost this month</div>
-          </div>
-          <div class="desc">est. LTV</div>
-        </div>
+    <div class="s-head">
+      <div>
+        <div class="s-num">08 — FAQ</div>
+        <h2 class="h-section serif">Answers, on the record.</h2>
       </div>
+      <p class="lede">The questions we hear most from operators evaluating Rally against their existing sourcing stack.</p>
+    </div>
 
-      <div class="compare-col good reveal">
-        <div class="compare-label">
-          <span>With Rally</span>
-          <span class="won">+ recovered</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#7a9c5a">WL</div>
-          <div class="ci-info">
-            <div class="ci-name">Wei Ling</div>
-            <div class="ci-detail">Follow-up sent post-trial</div>
-          </div>
-          <span class="ci-tag good">Converted</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#b8834a">MK</div>
-          <div class="ci-info">
-            <div class="ci-name">Marcus K.</div>
-            <div class="ci-detail">Re-engagement sent · day 10</div>
-          </div>
-          <span class="ci-tag good">Back in</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#8a6a9c">PS</div>
-          <div class="ci-info">
-            <div class="ci-name">Priya S.</div>
-            <div class="ci-detail">Renewal reminder · 5 days early</div>
-          </div>
-          <span class="ci-tag good">Renewed</span>
-        </div>
-        <div class="compare-item">
-          <div class="ci-avatar" style="background:#5a7a9c">DT</div>
-          <div class="ci-info">
-            <div class="ci-name">Darren T.</div>
-            <div class="ci-detail">Win-back deal sent · week 2</div>
-          </div>
-          <span class="ci-tag good">Re-engaged</span>
-        </div>
-        <div class="compare-total">
-          <div>
-            <div class="amt">+$3,200</div>
-            <div style="font-size:12px; color:var(--green); margin-top:2px;">recovered this month</div>
-          </div>
-          <div class="desc">realised revenue</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CUSTOM / INTEGRATIONS ============ -->
-<section id="integrations" class="custom">
-  <div class="wrap">
-    <div class="custom-head reveal">
-      <span class="eyebrow">Fits how you already work</span>
-      <h2>Rally is set up around <em>your stack.</em></h2>
-      <p class="lead">Every studio runs differently. We shape Rally to fit what you've already got — not the other way round.</p>
-    </div>
-    <div class="custom-grid">
-      <div class="custom-card reveal">
-        <svg class="custom-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 18a5 5 0 005 5h2a5 5 0 005-5v-1"/>
-          <path d="M22 14a5 5 0 00-5-5h-2a5 5 0 00-5 5v1"/>
-          <line x1="8" y1="14" x2="24" y2="18"/>
-        </svg>
-        <h3>On a CRM or booking platform?</h3>
-        <p>Rally plugs into the tools you already use to manage members and bookings. We shape the integration to your workflow.</p>
-        <div class="custom-note">→ We map it out on our first call</div>
-      </div>
-      <div class="custom-card reveal">
-        <svg class="custom-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="5" y="5" width="22" height="22" rx="2"/>
-          <line x1="5" y1="12" x2="27" y2="12"/>
-          <line x1="5" y1="19" x2="27" y2="19"/>
-          <line x1="12" y1="5" x2="12" y2="27"/>
-        </svg>
-        <h3>Running on a spreadsheet?</h3>
-        <p>No problem — we've set Rally up from a single Google Sheet before. If your data exists, we can work with it.</p>
-        <div class="custom-note">→ No migration or fancy software needed</div>
-      </div>
-      <div class="custom-card reveal">
-        <svg class="custom-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 4v24M4 16h24"/>
-          <circle cx="16" cy="16" r="12"/>
-        </svg>
-        <h3>Starting from scratch?</h3>
-        <p>Even better. If you don't have a system yet, Rally becomes the foundation — a simple, structured process from day one.</p>
-        <div class="custom-note">→ We build it together</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ AI BUILDER ============ -->
-<section class="builder">
-  <div class="wrap">
-    <div class="builder-head reveal">
-      <span class="eyebrow">Set up in seconds</span>
-      <h2>Just tell Rally <em>what you want.</em></h2>
-      <p class="lead">No complex setup. No learning curve. Describe what you need — Rally builds it.</p>
-    </div>
-    <div class="builder-wrap">
-      <div class="chat-panel reveal">
-        <div class="chat-head">
-          <div class="avatar">R</div>
-          <div>
-            <div class="title">Rally AI</div>
-            <div class="subtitle"><span class="dot-live"></span> online</div>
-          </div>
-        </div>
-        <div class="chat-msg">
-          <div class="who">You</div>
-          <div class="text you">Hey Rally, I want to launch a referral campaign — referrers get 30% off their next 3 months if the person they introduce converts.</div>
-        </div>
-        <div class="chat-msg">
-          <div class="who">Rally</div>
-          <div class="text">On it! Here's what I'm setting up for you:</div>
-          <ul class="chat-checks">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Campaign: Referral Reward — April</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Trigger: new member converts via referral link</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Reward: 30% off next 3 months for referrer</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Eligible: active members, 1+ month tenure</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 8"/></svg> Duration: ongoing until paused</li>
-          </ul>
-          <div class="chat-followup">
-            Should I also send an announcement to all current members to let them know?
-          </div>
-        </div>
-      </div>
-
-      <div class="build-panel reveal">
-        <h5>Referral Reward — April</h5>
-        <div class="build-status"><span class="spinner"></span> Building campaign…</div>
-        <div class="build-row">
-          <span class="k">Trigger</span>
-          <span class="v">New member via referral link</span>
-        </div>
-        <div class="build-row">
-          <span class="k">Reward</span>
-          <span class="v">30% off × 3 months</span>
-        </div>
-        <div class="build-row">
-          <span class="k">Eligible</span>
-          <span class="v">38 active members · 1+ mo tenure</span>
-        </div>
-        <div class="build-row">
-          <span class="k">Channel</span>
-          <span class="v">WhatsApp + Email</span>
-        </div>
-        <div class="build-row">
-          <span class="k">Duration</span>
-          <span class="v">Ongoing · pausable</span>
-        </div>
-        <div class="build-row">
-          <span class="k">Status</span>
-          <span class="v" style="color:#e8a87a;">● Ready to launch</span>
-        </div>
-      </div>
+    <div class="faq">
+      <details open>
+        <summary><span class="n">Q.01</span><span>How is Rally different from Apollo or ZoomInfo?</span><span class="plus">+</span></summary>
+        <div class="body">Apollo and ZoomInfo are static databases — they answer "which companies exist?" using pre-indexed datasets, which means they struggle with smaller, newer, niche, or local businesses, and they can't reason about nuanced criteria like "uses Square POS" or "no loyalty program." Rally researches the live web in real time and qualifies each business against your specific requirements before returning it.</div>
+      </details>
+      <details>
+        <summary><span class="n">Q.02</span><span>How is Rally different from Clay?</span><span class="plus">+</span></summary>
+        <div class="body">Clay is excellent at <em>enrichment</em> — turning a list you already have into a more useful list. Rally focuses on the earlier, harder problem: discovering and qualifying the businesses in the first place. The two tools compose well; Rally produces the seed list, Clay enriches it further.</div>
+      </details>
+      <details>
+        <summary><span class="n">Q.03</span><span>Can I just use ChatGPT or Claude with web search?</span><span class="plus">+</span></summary>
+        <div class="body">For one-off lookups, sure. But generic LLMs lack persistent sourcing state, retry logic, deduplication, coverage tracking, and goal-based execution — they tend to return five loosely-relevant matches and stop. Rally is purpose-built for sourcing as a workflow, not as a chat turn.</div>
+      </details>
+      <details>
+        <summary><span class="n">Q.04</span><span>Where does the data come from? Is this legal?</span><span class="plus">+</span></summary>
+        <div class="body">Rally only uses publicly available web data — the same pages a human researcher would consult: search engines, business directories, public maps listings, public social profiles, and business websites. Contacts are limited to publicly published information. Rally does not access private data, gated platforms, or paid databases.</div>
+      </details>
+      <details>
+        <summary><span class="n">Q.05</span><span>How does goal-based sourcing work?</span><span class="plus">+</span></summary>
+        <div class="body">You specify a target — say, 500 qualified leads — and Rally keeps running. It retries failed sources, expands into adjacent discovery paths, and tracks sourcing memory between runs so coverage compounds. The run completes when the target is met or the search space is genuinely exhausted.</div>
+      </details>
+      <details>
+        <summary><span class="n">Q.06</span><span>What does pricing actually look like?</span><span class="plus">+</span></summary>
+        <div class="body">Pricing on this page is illustrative ahead of launch. Rally will support a free tier, a flat operator subscription with pay-per-search usage, and custom volume pricing for agencies and teams. The goal is to make high-quality sourcing meaningfully cheaper than the traditional Apollo + Clay + intern stack.</div>
+      </details>
+      <details>
+        <summary><span class="n">Q.07</span><span>When can I use it?</span><span class="plus">+</span></summary>
+        <div class="body">Rally is in private preview with a small group of design partners. The waitlist is in order. Join below and we'll reach out when your slot opens.</div>
+      </details>
     </div>
   </div>
 </section>
 
 <!-- ============ CTA ============ -->
-<section id="cta" class="cta-final">
-  <div class="wrap inner">
-    <span class="eyebrow" style="color:rgba(255,255,255,0.8);">Gathering interest · early 2026</span>
-    <h2 style="margin-top:16px;">Interested?<br><em>Let's talk.</em></h2>
-    <p class="lead">Rally is in early days — I'm just trying to understand if this would be useful for your studio. No pitch, no commitment. Just a quick chat.</p>
-    <div class="hero-ctas">
-      <a href="mailto:rallygrowth@gmail.com?subject=Interested%20in%20Rally" class="btn btn-primary">I'm interested <span class="arrow">→</span></a>
-      <a href="mailto:rallygrowth@gmail.com?subject=Book%20a%2020-min%20call&body=Hi%20Rally%20team%2C%0A%0AI'd%20love%20to%20book%20a%2020-min%20call%20to%20learn%20more.%0A%0AStudio%2Fbusiness%3A%20%0ABest%20times%3A%20%0A%0AThanks!" class="btn btn-ghost">Book a 20-min call</a>
-    </div>
-    <div class="cta-meta">
-      <span>● Just a chat</span>
-      <span>● No commitment</span>
-      <span>● Shaping what we build</span>
-    </div>
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#a39a83"><span class="dot"></span>Private preview</div>
+    <h2 class="h-display serif" style="margin-top:18px">Run your first<br/>brief <em>this week.</em></h2>
+    <p class="lede">A small batch of operators joins each week. Tell us what you're sourcing — we'll reach out when your slot opens.</p>
+    <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ On the list';">
+      <input type="email" placeholder="you@company.com" required />
+      <button type="submit" class="btn btn-accent">Join the waitlist</button>
+    </form>
+    <div class="cta-fineprint">No spam. One email when your access is ready.</div>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer>
-  <div class="wrap">
-    <div class="inner">
-      <div>
-        <a href="#" class="logo">
-          <span class="logo-mark">R</span>
-          Rally
-        </a>
-        <div class="tagline">Built for membership &amp; class-based businesses.</div>
-      </div>
-      <div class="links">
-        <a href="#problem">Problem</a>
-        <a href="#solution">Solution</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#cta">Contact</a>
-      </div>
+<footer class="foot">
+  <div class="wrap row">
+    <div class="brand">Rally</div>
+    <div class="spacer"></div>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
     </div>
-    <div class="bottom">
-      <span>© 2026 Rally · Built for membership &amp; class-based businesses</span>
-      <span>Privacy · Terms</span>
-    </div>
+    <div style="margin-left:28px">© 2026 Rally Research, Inc.</div>
   </div>
 </footer>
 
-<!-- ============ TWEAKS PANEL ============ -->
-<div id="tweaks-panel">
-  <h5>Tweaks</h5>
-  <div class="tp-sub">Live design knobs</div>
-  <div class="tp-row">
-    <label>Accent color</label>
-    <div class="swatches" id="accent-swatches">
-      <div class="swatch" data-color="#c45a3a" style="background:#c45a3a"></div>
-      <div class="swatch" data-color="#8a5a3a" style="background:#8a5a3a"></div>
-      <div class="swatch" data-color="#4a7a6a" style="background:#4a7a6a"></div>
-      <div class="swatch" data-color="#5a6a9c" style="background:#5a6a9c"></div>
-      <div class="swatch" data-color="#1f1710" style="background:#1f1710"></div>
-    </div>
-  </div>
-  <div class="tp-row">
-    <label>Background tone</label>
-    <div class="swatches" id="bg-swatches">
-      <div class="swatch" data-bg="#f6f1e8" style="background:#f6f1e8; border:1px solid #ccc"></div>
-      <div class="swatch" data-bg="#f0ebe1" style="background:#f0ebe1; border:1px solid #ccc"></div>
-      <div class="swatch" data-bg="#fbf7f0" style="background:#fbf7f0; border:1px solid #ccc"></div>
-      <div class="swatch" data-bg="#ece7db" style="background:#ece7db; border:1px solid #ccc"></div>
-    </div>
-  </div>
-  <div class="tp-row">
-    <label>Headline font</label>
-    <select id="font-select">
-      <option value="Instrument Serif">Instrument Serif</option>
-      <option value="Fraunces">Fraunces</option>
-      <option value="Inter Tight">Inter Tight (sans)</option>
-    </select>
-  </div>
-</div>
+<!-- React + Babel for live demos -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="hero-demo.jsx"></script>
+<script type="text/babel" src="agent-trail.jsx"></script>
 
-<script>
-/* ---------- Nav shadow on scroll ---------- */
-const navEl = document.querySelector('nav.top');
-window.addEventListener('scroll', () => {
-  navEl.classList.toggle('scrolled', window.scrollY > 10);
-});
-
-/* ---------- Verticals marquee ---------- */
-const verticals = [
-  'Martial Arts','Yoga','Dance','Art Studios',
-  'Music Schools','Fitness','Swim Schools','Tutoring',
-  'Wellness','Climbing','Boxing','Running Clubs'
-];
-const marquee = document.getElementById('marquee');
-const dotSvg = `<svg class="vertical-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="8"/></svg>`;
-const makeRun = () => {
-  return verticals.map((name) => `
-    <span class="vertical">
-      ${dotSvg}
-      ${name}
-      <span class="vertical-dot">·</span>
-    </span>
-  `).join('');
-};
-marquee.innerHTML = makeRun() + makeRun();
-
-/* ---------- Reveal on scroll ---------- */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-/* ---------- Count-up KPIs ---------- */
-function animateCount(el, target, suffix='', decimals=0, duration=1600) {
-  const start = performance.now();
-  function tick(t) {
-    const p = Math.min(1, (t - start) / duration);
-    const eased = 1 - Math.pow(1 - p, 3);
-    const val = target * eased;
-    el.textContent = decimals ? val.toFixed(decimals) : Math.round(val);
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-const kpiObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateCount(document.getElementById('kpi-1'), 38);
-      animateCount(document.getElementById('kpi-2'), 94);
-      animateCount(document.getElementById('kpi-3'), 1.4, '', 1);
-      animateCount(document.getElementById('kpi-4'), 142);
-      kpiObserver.disconnect();
-    }
-  });
-}, { threshold: 0.3 });
-const dashEl = document.querySelector('.dashboard');
-if (dashEl) kpiObserver.observe(dashEl);
-
-/* ---------- Hero insights rotator ---------- */
-const insights = [
-  {i:'MT',cls:'green', n:'Marcus T.',  t:'Membership · Expiring in 5 days',   body:'Renewal reminder sent — prevents a passive lapse.',            pill:'Sent ✓',      pillCls:'sent',   b1:'Got it',  b2:'View'},
-  {i:'PM',cls:'blue',  n:'Priya M.',   t:'No visit · 14 days',               body:'Re-engagement nudge ready — before she fully drifts away.',    pill:'Ready to send',pillCls:'ready',  b1:'Approve', b2:'Skip'},
-  {i:'DK',cls:'sage',  n:'Darren K.',  t:'Trial ended · Earlier today',      body:'Follow-up queued — striking while interest is highest.',        pill:'Queued',       pillCls:'queued', b1:'Approve', b2:'Skip'},
-  {i:'WL',cls:'green', n:'Wei Ling',   t:'Converted · Just now 🎉',             body:'Signed up after her post-trial follow-up. Timing made the difference.', pill:'Won',   pillCls:'sent',   b1:'Got it',  b2:'View'},
-  {i:'JS',cls:'blue',  n:'Jamie S.',   t:'3-month milestone · Today',         body:'Appreciation message ready — members who feel noticed stay longer.', pill:'Ready to send', pillCls:'ready', b1:'Approve', b2:'Skip'},
-  {i:'AC',cls:'sage',  n:'Alex C.',    t:'Birthday month · This month',       body:'Birthday offer queued — small gesture, strong retention impact.', pill:'Ready to send', pillCls:'ready', b1:'Approve', b2:'Skip'},
-  {i:'RP',cls:'green', n:'Ryan P.',    t:'Trial booked · Tomorrow',           body:'Pre-class reminder sent — reduces no-shows, sets the right tone.', pill:'Sent ✓',    pillCls:'sent',   b1:'Got it',  b2:'View'},
-  {i:'SK',cls:'sage',  n:'Sarah K.',   t:'Cold lead · 30 days ago',            body:'Win-back queued — some leads just need a second moment.',       pill:'Queued',       pillCls:'queued', b1:'Approve', b2:'Skip'},
-  {i:'LT',cls:'green', n:'Lisa T.',    t:'Referral · Just now 🎉',                body:'Referred a friend — thank-you sent. Loyalty deserves recognition.', pill:'Sent ✓',    pillCls:'sent',   b1:'Got it',  b2:'View'},
-  {i:'BH',cls:'blue',  n:'Ben H.',     t:'Attendance dropping · 3 weeks',     body:'Check-in ready — early outreach before disengagement sets in.',  pill:'Ready to send', pillCls:'ready', b1:'Approve', b2:'Skip'}
-];
-const insightsBody = document.getElementById('insights-body');
-const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const buildRow = (d) => {
-  const el = document.createElement('div');
-  el.className = 'insight-row';
-  el.innerHTML = `
-    <div class="insight-top">
-      <div class="insight-avatar ${d.cls}">${esc(d.i)}</div>
-      <div class="insight-meta">
-        <div class="insight-name">${esc(d.n)}</div>
-        <div class="insight-sub">${esc(d.t)}</div>
-      </div>
-      <div class="insight-pill ${d.pillCls}">${esc(d.pill)}</div>
-    </div>
-    <div class="insight-body">${esc(d.body)}</div>
-    <div class="insight-actions">
-      <button class="act primary">${esc(d.b1)}</button>
-      <button class="act">${esc(d.b2)}</button>
-    </div>`;
-  return el;
-};
-
-if (insightsBody) {
-  let cursor = 0;
-  const MAX_VISIBLE = 3;
-  // Seed with first 3 in reverse-entry order so they're already there
-  for (let k = 0; k < MAX_VISIBLE; k++) {
-    const row = buildRow(insights[cursor % insights.length]);
-    row.style.animationDelay = `${k * 0.22}s`;
-    insightsBody.appendChild(row);
-    cursor++;
-  }
-  const tick = () => {
-    const row = buildRow(insights[cursor % insights.length]);
-    cursor++;
-    insightsBody.appendChild(row);
-    // Ease out the top one when we exceed max
-    const rows = insightsBody.querySelectorAll('.insight-row');
-    if (rows.length > MAX_VISIBLE) {
-      const first = rows[0];
-      first.classList.add('leaving');
-      setTimeout(() => first.remove(), 600);
-    }
-  };
-  let rotator = null;
-  const startRotator = () => {
-    if (rotator) return;
-    rotator = setInterval(tick, 2600);
-  };
-  const stopRotator = () => {
-    clearInterval(rotator); rotator = null;
-  };
-  // Only rotate while in view
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => e.isIntersecting ? startRotator() : stopRotator());
-  }, { threshold: 0.2 });
-  io.observe(insightsBody);
-}
-
-/* ---------- Tweaks protocol ---------- */
-const tweakPanel = document.getElementById('tweaks-panel');
-let currentTweaks = {
-  accent: '#c45a3a',
-  bgTone: '#f6f1e8',
-  headlineFont: 'Instrument Serif'
-};
-
-function applyTweak(key, val) {
-  currentTweaks[key] = val;
-  const root = document.documentElement;
-  if (key === 'accent') {
-    root.style.setProperty('--accent', val);
-    // re-derive soft + ink variants
-    root.style.setProperty('--accent-soft', val + '33');
-  }
-  if (key === 'bgTone') {
-    root.style.setProperty('--bg', val);
-  }
-  if (key === 'headlineFont') {
-    root.style.setProperty('--headline', `'${val}', Georgia, serif`);
-  }
-  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]: val}}, '*');
-}
-
-// Swatches
-document.querySelectorAll('#accent-swatches .swatch').forEach(s => {
-  s.addEventListener('click', () => {
-    document.querySelectorAll('#accent-swatches .swatch').forEach(x => x.classList.remove('active'));
-    s.classList.add('active');
-    applyTweak('accent', s.dataset.color);
-  });
-});
-document.querySelectorAll('#bg-swatches .swatch').forEach(s => {
-  s.addEventListener('click', () => {
-    document.querySelectorAll('#bg-swatches .swatch').forEach(x => x.classList.remove('active'));
-    s.classList.add('active');
-    applyTweak('bgTone', s.dataset.bg);
-  });
-});
-document.getElementById('font-select').addEventListener('change', (e) => {
-  applyTweak('headlineFont', e.target.value);
-});
-
-// Listener first, then announce
-window.addEventListener('message', (e) => {
-  if (!e.data) return;
-  if (e.data.type === '__activate_edit_mode') {
-    tweakPanel.classList.add('active');
-    // seed active swatch
-    document.querySelectorAll('#accent-swatches .swatch').forEach(s => {
-      if (s.dataset.color === currentTweaks.accent) s.classList.add('active');
-    });
-    document.querySelectorAll('#bg-swatches .swatch').forEach(s => {
-      if (s.dataset.bg === currentTweaks.bgTone) s.classList.add('active');
-    });
-  }
-  if (e.data.type === '__deactivate_edit_mode') {
-    tweakPanel.classList.remove('active');
-  }
-});
-window.parent.postMessage({type:'__edit_mode_available'}, '*');
-</script>
-
-<script>
-(function(){
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbwFFGLG0doO4dcH-guxkmG9I_PU-m4RyopDwviT9U2wkURWExQqiIkbfr2KXQbCZyASAg/exec";
-    const KEY = "rally-visit-notified-at";
-    const DAY = 24*60*60*1000;
-    try {
-        const last = +localStorage.getItem(KEY) || 0;
-        if (Date.now() - last < DAY) return;
-    } catch (_) {}
-    setTimeout(function(){
-        const data = JSON.stringify({
-            ua: navigator.userAgent,
-            ref: document.referrer || "direct",
-            tz: Intl.DateTimeFormat().resolvedOptions().timeZone
-        });
-        if (navigator.sendBeacon) {
-            navigator.sendBeacon(ENDPOINT, new Blob([data], { type: "text/plain" }));
-        } else {
-            fetch(ENDPOINT, { method: "POST", body: data }).catch(() => {});
-        }
-        try { localStorage.setItem(KEY, String(Date.now())); } catch (_) {}
-    }, 2000);
-})();
-</script>
 </body>
 </html>

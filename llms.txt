@@ -1,0 +1,56 @@
+# Rally
+
+> Rally is an AI-powered sourcing and qualification agent that automates lead research. Users describe what they're looking for in plain English; Rally researches the live web in real time, qualifies each business against the requested criteria, and returns a structured outreach list with verified contact information.
+
+## What Rally does
+
+Rally automates the full lead research workflow: discovery, qualification, contact extraction, and coverage tracking. Instead of manually searching Google, Maps, directories, and social platforms, users submit a natural-language brief and Rally executes a structured sourcing run until the goal is met or the search space is exhausted.
+
+## How Rally is different
+
+- **Vs. Apollo / ZoomInfo (static databases):** Rally researches the live web in real time and qualifies each business against custom criteria. Static databases struggle with smaller, newer, niche, and local businesses and cannot reason about nuanced criteria like technology usage or feature presence.
+- **Vs. Clay (enrichment):** Clay improves lists you already have. Rally produces the qualified list in the first place. The two compose well.
+- **Vs. ChatGPT / Claude / general LLMs:** Generic LLMs do one-off lookups. Rally provides persistent sourcing state, retry logic, deduplication, coverage tracking, and goal-based execution.
+- **Vs. general AI agents (Manus, etc.):** Rally is purpose-built for sourcing — deeper qualification logic, more exhaustive coverage, structured outputs.
+
+## Qualification criteria Rally can evaluate
+
+Software usage, booking systems, online ordering availability, website features, social media activity, review counts, business size, hiring activity, service offerings, geographic relevance, contact availability, technology signals, language requirements.
+
+## Workflow
+
+1. **Clarify requirements** — geographic scope, qualification thresholds, exclusion filters, contact requirements, target quantity.
+2. **Build a search plan** — which directories, maps, niche listings, social platforms, and qualification signals to use.
+3. **Discover across the web** — Google, Maps, business directories, social platforms, booking platforms, public databases.
+4. **Qualify against criteria** — page inspection, feature evaluation, reasoning-based filtering, deduplication.
+5. **Extract and verify contacts** — email, phone, contact form, Instagram, LinkedIn, WhatsApp.
+6. **Track coverage to goal** — retries, sourcing memory, completion-based execution.
+
+## Pricing
+
+- **Starter** — Free. 3 sourcing runs per month, up to 50 qualified leads per run.
+- **Operator** — $49/mo + usage. Unlimited runs, up to 1,000 leads per run, persistent sourcing memory, custom qualification criteria, API access.
+- **Scale** — Custom. Volume credit pricing, multi-workspace, SSO, priority lanes. For agencies and teams.
+
+Pricing is illustrative ahead of public launch.
+
+## Ideal users
+
+Solo founders, agencies, recruiters, outbound sales teams, SaaS companies, partnerships teams, local-business vendors, SMB operators running targeted outreach.
+
+## Data sources
+
+Rally uses only publicly available web data — search engines, public directories, public maps listings, public social profiles, business websites. Contact details are limited to publicly published information. Rally does not access private data, gated platforms, or paid databases.
+
+## Example briefs
+
+- Find 1,000 cafés in Manhattan with public contact emails and active Instagram pages.
+- Find fitness studios in Singapore using Vibefam or Mindbody booking systems.
+- Compile florists in Amsterdam with online ordering websites and contact forms.
+- Find restaurants in London with reservation systems but no loyalty program.
+- Boutique hotels in Bali with direct booking websites and WhatsApp contact numbers.
+- Coworking spaces in Dubai opened within the last two years.
+
+## Status
+
+Private preview. Operators join in small batches each week. Waitlist at https://rally.research/.
