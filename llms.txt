@@ -53,4 +53,4 @@ Rally uses only publicly available web data — search engines, public directori
 
 ## Status
 
-Private preview. Operators join in small batches each week. Waitlist at https://rally.research/.
+Private preview. Operators join in small batches each week. Waitlist at https://rallygrowth.com/.

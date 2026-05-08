@@ -15,4 +15,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://rally.research/sitemap.xml
+Sitemap: https://rallygrowth.com/sitemap.xml
