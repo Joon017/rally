@@ -698,6 +698,36 @@
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script type="text/babel" src="hero-demo.jsx"></script>
 <script type="text/babel" src="agent-trail.jsx"></script>
+<script>
+(function () {
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbwFFGLG0doO4dcH-guxkmG9I_PU-m4RyopDwviT9U2wkURWExQqiIkbfr2KXQbCZyASAg/exec";
+  const KEY = "rally-visit-notified-at";
+  const DAY = 24 * 60 * 60 * 1000;
+
+  try {
+    const last = +localStorage.getItem(KEY) || 0;
+    if (Date.now() - last < DAY) return;
+  } catch (_) {}
+
+  setTimeout(function () {
+    const data = JSON.stringify({
+      ua: navigator.userAgent,
+      ref: document.referrer || "direct",
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone
+    });
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(ENDPOINT, new Blob([data], { type: "text/plain" }));
+    } else {
+      fetch(ENDPOINT, { method: "POST", body: data }).catch(function () {});
+    }
+
+    try {
+      localStorage.setItem(KEY, String(Date.now()));
+    } catch (_) {}
+  }, 2000);
+})();
+</script>
 
 </body>
 </html>
